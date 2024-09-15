@@ -3,7 +3,8 @@ import customtkinter
 from logger_config import logger
 
 
-class MiniChatSubChat(customtkinter.CTkFrame):
+# TODO: put padx/y, border_width... into a separate file for global variable
+class SubChat(customtkinter.CTkFrame):
     def __init__(self, master):
         logger.debug("0")
         super().__init__(master=master)
@@ -38,7 +39,7 @@ class MiniChatSubChat(customtkinter.CTkFrame):
         self.button_send = customtkinter.CTkButton(master=self.frame_message, text="Send", width=55, border_width=2, border_color="gray30", command=self.send_message)
         self.button_send.grid(row=0, column=1, padx=(10, 0), pady=0, sticky="ew")
 
-        logger.debug("0")
+        logger.debug("1")
 
     def send_message(self, event=None) -> None:
         # TODO: What if role is changed?
