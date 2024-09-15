@@ -53,6 +53,6 @@ class Logging:
 # TODO: put these into a separate file for global variable
 arg_name = __name__
 arg_level = logging.DEBUG
-arg_path_dir = os.path.join(os.path.dirname(__file__), "..", "log")
+arg_path_dir = os.path.join(os.path.dirname(__file__), "..", "logs")
 
 logger = Logging().set_logger(name=arg_name, level=arg_level, path_dir=arg_path_dir)
