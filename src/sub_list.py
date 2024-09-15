@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 import customtkinter
 
 from PIL import Image
@@ -9,7 +10,8 @@ from global_variable import SUB_METHOD
 
 
 # TODO: put these (inc. padx/y, border_width...) into a separate file for global variable
-SIZE_LIST_LOGO = (25, 25)
+SIZE_LOGO = (256, 256)
+SIZE_LOGO_LIST = (25, 25)
 PATH_LIST = os.path.join(os.path.dirname(__file__), "..", "list")
 PATH_LIST_CONFIG = os.path.join(PATH_LIST, "list_config.json")
 WIDGETS_LIST = [
@@ -96,15 +98,15 @@ class SubList(customtkinter.CTkFrame):
 
         n = len(WIDGETS_LIST[0])
 
-        image_path = os.path.join(PATH_LIST, name_, f"{name_}.png")
-        image_open = Image.open(image_path)
-        image = customtkinter.CTkImage(
-            dark_image=image_open,
-            size=SIZE_LIST_LOGO
+        logo_path = os.path.join(PATH_LIST, name_, f"{name_}.png")
+        logo_open = Image.open(logo_path)
+        logo = customtkinter.CTkImage(
+            dark_image=logo_open,
+            size=SIZE_LOGO_LIST
         )
 
         WIDGETS_LIST[0].append(
-            customtkinter.CTkLabel(master=self.frame_docs_scrollable, image=image, text="", justify="center", cursor="hand2")
+            customtkinter.CTkLabel(master=self.frame_docs_scrollable, image=logo, text="", justify="center", cursor="hand2")
         )
         WIDGETS_LIST[0][n].grid(row=n, column=0, padx=(0, 0), pady=(10, 0), sticky="ew")
         WIDGETS_LIST[0][n].bind("<Button-1>", lambda event, name=name_: self.open_item(name))
@@ -176,11 +178,18 @@ class SubList(customtkinter.CTkFrame):
 
         logger.debug("1")
 
-    def save_logo(self, name: str, logo: customtkinter.CTkImage) -> None:
+    def save_logo(self, name: str, logo: str | bytes) -> None:
         logger.debug("0")
 
         path_logo = os.path.join(PATH_LIST, name, f"{name}.png")
-        with open(path_logo, "wb") as f:
-            f.write(logo)
+
+        # no logo generated --> path of default logo
+        if type(logo) == str:
+            shutil.copyfile(logo, path_logo)
+
+        # logo generated --> logo in bytes
+        if type(logo) == bytes:
+            with open(path_logo, "wb") as f:
+                f.write(logo)
 
         logger.debug("1")

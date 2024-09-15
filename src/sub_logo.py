@@ -8,9 +8,9 @@ from global_variable import SUB_METHOD
 
 # TODO: put these (inc. padx/y, border_width...) into a separate file for global variable
 # TODO: add abstract class for set_sub_method
-SIZE_IMAGE = (256, 256)
-PATH_IMAGE = os.path.join(os.path.dirname(__file__), "..", "png")
-PATH_IMAGE_DEFAULT = os.path.join(PATH_IMAGE, "image_default.png")
+SIZE_LOGO = (256, 256)
+PATH_LOGO = os.path.join(os.path.dirname(__file__), "..", "png")
+PATH_LOGO_DEFAULT = os.path.join(PATH_LOGO, "minichat.png")
 
 
 class SubLogo(customtkinter.CTkFrame):
@@ -39,9 +39,10 @@ class SubLogo(customtkinter.CTkFrame):
         self.entry_prompt = customtkinter.CTkEntry(master=self.frame_prompt, placeholder_text="Prompt of Logo", justify="center")
         self.entry_prompt.grid(row=0, column=0, padx=0, pady=0, sticky="ew")
 
+        self.path_logo = PATH_LOGO_DEFAULT
         logo = customtkinter.CTkImage(
-            dark_image=Image.open(PATH_IMAGE_DEFAULT),
-            size=SIZE_IMAGE
+            dark_image=Image.open(self.path_logo),
+            size=SIZE_LOGO
         )
 
         self.label_logo = customtkinter.CTkLabel(master=self.frame_logo, image=logo, text="", justify="center")
@@ -59,10 +60,10 @@ class SubLogo(customtkinter.CTkFrame):
         SUB_METHOD["get"]["logo"] = self.get_logo
         logger.debug("1")
 
-    def get_logo(self) -> customtkinter.CTkImage:
+    def get_logo(self) -> str:
         logger.debug("0")
         logger.debug("1")
-        return self.label_logo.cget("image")
+        return self.path_logo
 
     def generate_logo(self) -> None:
         logger.debug("0")
