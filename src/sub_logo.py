@@ -2,6 +2,7 @@ import os
 import customtkinter
 
 from PIL import Image
+from sub_abc import SubABC
 from logger_config import logger
 from global_variable import SUB_METHOD
 
@@ -13,7 +14,7 @@ PATH_LOGO = os.path.join(os.path.dirname(__file__), "..", "png")
 PATH_LOGO_DEFAULT = os.path.join(PATH_LOGO, "minichat.png")
 
 
-class SubLogo(customtkinter.CTkFrame):
+class SubLogo(customtkinter.CTkFrame, SubABC):
     def __init__(self, master):
         logger.debug("0")
         super().__init__(master=master)
@@ -55,6 +56,7 @@ class SubLogo(customtkinter.CTkFrame):
 
         logger.debug("1")
 
+    # override abstract method
     def set_sub_method(self) -> None:
         logger.debug("0")
         SUB_METHOD["get"]["logo"] = self.get_logo

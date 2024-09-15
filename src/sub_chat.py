@@ -1,12 +1,13 @@
 import customtkinter
 
+from sub_abc import SubABC
 from logger_config import logger
 from global_variable import SUB_METHOD
 
 
 # TODO: put padx/y, border_width... into a separate file for global variable
 # TODO: add abstract class for set_sub_method
-class SubChat(customtkinter.CTkFrame):
+class SubChat(customtkinter.CTkFrame, SubABC):
     def __init__(self, master):
         logger.debug("0")
         super().__init__(master=master)
@@ -45,6 +46,7 @@ class SubChat(customtkinter.CTkFrame):
 
         logger.debug("1")
 
+    # override abstract method
     def set_sub_method(self) -> None:
         logger.debug("0")
         SUB_METHOD["get"]["chat"] = self.get_chat
