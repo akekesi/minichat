@@ -98,7 +98,7 @@ class MiniChat(customtkinter.CTk):
             self.sub_chat.send_message()
 
         if self.tab_current == TABS_KEYS[1]:
-            self.sub_logo.generate_image()
+            self.sub_logo.generate_logo()
 
         if self.tab_current == TABS_KEYS[2]:
             self.sub_list.add_item()

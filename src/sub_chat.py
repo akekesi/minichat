@@ -1,9 +1,11 @@
 import customtkinter
 
 from logger_config import logger
+from global_variable import SUB_METHOD
 
 
 # TODO: put padx/y, border_width... into a separate file for global variable
+# TODO: add abstract class for set_sub_method
 class SubChat(customtkinter.CTkFrame):
     def __init__(self, master):
         logger.debug("0")
@@ -39,7 +41,19 @@ class SubChat(customtkinter.CTkFrame):
         self.button_send = customtkinter.CTkButton(master=self.frame_message, text="Send", width=55, border_width=2, border_color="gray30", command=self.send_message)
         self.button_send.grid(row=0, column=1, padx=(10, 0), pady=0, sticky="ew")
 
+        self.set_sub_method()
+
         logger.debug("1")
+
+    def set_sub_method(self) -> None:
+        logger.debug("0")
+        SUB_METHOD["get"]["chat"] = self.get_chat
+        logger.debug("1")
+
+    def get_chat(self) -> str:
+        logger.debug("0")
+        logger.debug("1")
+        return self.textbox_chat.get(0.0, "end")
 
     def send_message(self, event=None) -> None:
         # TODO: What if role is changed?

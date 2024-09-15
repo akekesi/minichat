@@ -1,12 +1,17 @@
 import os
+import json
 import customtkinter
 
 from PIL import Image
 from typing import Dict
 from logger_config import logger
+from global_variable import SUB_METHOD
 
 
 # TODO: put these (inc. padx/y, border_width...) into a separate file for global variable
+SIZE_LIST_LOGO = (25, 25)
+PATH_LIST = os.path.join(os.path.dirname(__file__), "..", "list")
+PATH_LIST_CONFIG = os.path.join(PATH_LIST, "list_config.json")
 WIDGETS_LIST = [
     [],  # image of item:  widget - Label
     [],  # name of item:   widget - Entry
@@ -18,7 +23,14 @@ TYPES_ITEM = [
     "private",
     "public",
 ]
-PATH_LIST = os.path.join(os.path.dirname(__file__), "..", "list")
+
+try:
+    with open(PATH_LIST_CONFIG, 'r') as f:
+        LIST_CONFIG = json.load(f)
+    logger.info("%s is opened", PATH_LIST_CONFIG)
+except:
+    logger.info("%s is not found", PATH_LIST_CONFIG)
+    # TODO: break
 
 
 class SubList(customtkinter.CTkFrame):
@@ -52,20 +64,47 @@ class SubList(customtkinter.CTkFrame):
     def add_item(self, item: Dict[str | int, str] | None = None) -> None:
         logger.debug("0")
 
-        n = len(WIDGETS_LIST[0])
-        
-        hash_ = 0
-        name_ = "alien_ice_cream"
-        type_ = 0
+        if item:
+            hash_ = item["hash"]
+            name_ = item["name"]
+            type_ = item["type"]
+        else:
+            hash_ = str(len(LIST_CONFIG))
+            while True:
+                name_ = self.dialog_item_name(
+                    title="Name of Item",
+                    text="Enter the name of the item:",
+                )
+                if name_ == None:
+                    return
+                if not name_:
+                    logger.info("no name")
+                    continue
+                path_item = os.path.join(PATH_LIST, name_)
+                if os.path.exists(path_item):
+                    logger.info("%s is already exist", path_item)
+                    continue
+                break
+            os.makedirs(path_item)
+            logger.info("%s is created", path_item)
+            print(f"{SUB_METHOD = }")
+            chat = SUB_METHOD["get"]["chat"]()
+            logo = SUB_METHOD["get"]["logo"]()
+            self.save_chat(name=name_, chat=chat)
+            self.save_logo(name=name_, logo=logo)
+            type_ = 0
 
-        image_to_open = os.path.join(PATH_LIST, name_, f"{name_}.png")
-        image_ = customtkinter.CTkImage(
-            dark_image=Image.open(image_to_open),
-            size=(25, 25)
+        n = len(WIDGETS_LIST[0])
+
+        image_path = os.path.join(PATH_LIST, name_, f"{name_}.png")
+        image_open = Image.open(image_path)
+        image = customtkinter.CTkImage(
+            dark_image=image_open,
+            size=SIZE_LIST_LOGO
         )
 
         WIDGETS_LIST[0].append(
-            customtkinter.CTkLabel(master=self.frame_docs_scrollable, image=image_, text="", justify="center", cursor="hand2")
+            customtkinter.CTkLabel(master=self.frame_docs_scrollable, image=image, text="", justify="center", cursor="hand2")
         )
         WIDGETS_LIST[0][n].grid(row=n, column=0, padx=(0, 0), pady=(10, 0), sticky="ew")
         WIDGETS_LIST[0][n].bind("<Button-1>", lambda event, name=name_: self.open_item(name))
@@ -115,4 +154,33 @@ class SubList(customtkinter.CTkFrame):
     def open_item(self, name: str) -> None:
         logger.debug("0")
         logger.info("%s", name)
+        logger.debug("1")
+
+    def dialog_item_name(self, title: str, text: str) -> str:
+        logger.debug("0")
+
+        dialog = customtkinter.CTkInputDialog(title=title, text=text)
+        input_ = dialog.get_input()
+
+        logger.info("%s", input_)
+        logger.debug("1")
+
+        return input_
+
+    def save_chat(self, name: str, chat: str) -> None:
+        logger.debug("0")
+
+        path_chat = os.path.join(PATH_LIST, name, f"{name}.txt")
+        with open(path_chat, 'w') as f:
+            f.write(chat)
+
+        logger.debug("1")
+
+    def save_logo(self, name: str, logo: customtkinter.CTkImage) -> None:
+        logger.debug("0")
+
+        path_logo = os.path.join(PATH_LIST, name, f"{name}.png")
+        with open(path_logo, "wb") as f:
+            f.write(logo)
+
         logger.debug("1")
