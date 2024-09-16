@@ -61,9 +61,13 @@ class SubList(customtkinter.CTkFrame):
         self.button_add = customtkinter.CTkButton(master=self.frame_add, text="Add", width=75, border_width=2, border_color="gray30", command=self.add_item)
         self.button_add.grid(row=0, column=0, padx=(0, 2*10+6), pady=0, sticky="e")
 
+        self.load_list()
+
         logger.debug("1")
 
     def add_item(self, item: Dict[str | int, str] | None = None) -> None:
+        # TODO: check whether hash and n have conflict
+        # TODO: split into smaller sub functions 
         logger.debug("0")
 
         if item:
@@ -87,14 +91,26 @@ class SubList(customtkinter.CTkFrame):
                     logger.info("%s is already exist", path_item)
                     continue
                 break
+            type_ = 0
+
             os.makedirs(path_item)
             logger.info("%s is created", path_item)
-            print(f"{SUB_METHOD = }")
+
             chat = SUB_METHOD["get"]["chat"]()
             logo = SUB_METHOD["get"]["logo"]()
             self.save_chat(name=name_, chat=chat)
             self.save_logo(name=name_, logo=logo)
-            type_ = 0
+
+            item = {
+                hash_: {
+                    "state": 1,
+                    "hash": hash_,
+                    "name": name_,
+                    "type": type_,
+                },
+            }
+            LIST_CONFIG.update(item)
+            self.update_list_config()
 
         n = len(WIDGETS_LIST[0])
 
@@ -121,7 +137,7 @@ class SubList(customtkinter.CTkFrame):
         WIDGETS_LIST[1][n].configure(state="disabled")
 
         WIDGETS_LIST[2].append(
-            customtkinter.CTkComboBox(master=self.frame_docs_scrollable, values=TYPES_ITEM, width=100, justify="center", state="readonly",)# command=lambda type_=type_, n=n: self.update_type(n, type_))
+            customtkinter.CTkComboBox(master=self.frame_docs_scrollable, values=TYPES_ITEM, width=100, justify="center", state="readonly", command=lambda type_=type_, n=n: self.update_type(n, type_))
         )
         WIDGETS_LIST[2][n].grid(row=n, column=2, padx=(10, 0), pady=(10, 0), sticky="ew")
         WIDGETS_LIST[2][n].set(TYPES_ITEM[type_])
@@ -137,6 +153,10 @@ class SubList(customtkinter.CTkFrame):
 
     def delete_item(self, n: int) -> None:
         logger.debug("0")
+
+        hash_ = WIDGETS_LIST[4][n]
+        LIST_CONFIG[hash_]["state"] = 0
+        self.update_list_config()
 
         if WIDGETS_LIST[0][n]:
             WIDGETS_LIST[0][n].destroy()
@@ -192,4 +212,32 @@ class SubList(customtkinter.CTkFrame):
             with open(path_logo, "wb") as f:
                 f.write(logo)
 
+        logger.debug("1")
+
+    def load_list(self) -> None:
+        logger.debug("0")
+
+        for item in LIST_CONFIG.values():
+            if item["state"]:
+                self.add_item(item=item)
+
+        logger.debug("1")
+
+    def update_type(self, n: int, type_: str) -> None:
+        logger.debug("0")
+
+        hash_ = WIDGETS_LIST[4][n]
+        LIST_CONFIG[hash_]["type"] = TYPES_ITEM.index(type_)
+        self.update_list_config()
+
+        logger.info("%i --> %s", n, type_)
+        logger.debug("1")
+
+    def update_list_config(self) -> None:
+        logger.debug("0")
+
+        with open(PATH_LIST_CONFIG, "w") as f:
+            json.dump(LIST_CONFIG, f, indent=4)
+
+        logger.info("list is updated")
         logger.debug("1")
