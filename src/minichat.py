@@ -1,24 +1,17 @@
-import os
 import customtkinter
 
 from sub_chat import SubChat
 from sub_logo import SubLogo
 from sub_list import SubList
 from logger_config import logger
-
-
-# TODO: put these (inc. padx/y, border_width...) into a separate file for global variable
-SIZE = {
-    "width": 450,
-    "height": 550,
-}
-PATH_ICON = os.path.join(os.path.dirname(__file__), "..", "ico", "minichat.ico")
-TABS = {
-    "Chat": SubChat,
-    "Logo": SubLogo,
-    "List": SubList,
-}
-TABS_KEYS = list(TABS.keys())
+from global_variable import (
+    PADX,
+    PADY,
+    BORDER_WIDTH,
+    BORDER_COLOR,
+    SIZE_MINICHAT,
+    PATH_ICO_MINICHAT,
+)
 
 
 class MiniChat(customtkinter.CTk):
@@ -27,9 +20,9 @@ class MiniChat(customtkinter.CTk):
         super().__init__()
 
         self.title("MiniChat")
-        self.geometry(f"{SIZE["width"]}x{SIZE["height"]}")
-        self.minsize(width=SIZE["width"], height=SIZE["height"])
-        self.iconbitmap(PATH_ICON)
+        self.geometry(f"{SIZE_MINICHAT["width"]}x{SIZE_MINICHAT["height"]}")
+        self.minsize(width=SIZE_MINICHAT["width"], height=SIZE_MINICHAT["height"])
+        self.iconbitmap(PATH_ICO_MINICHAT)
 
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
@@ -38,19 +31,27 @@ class MiniChat(customtkinter.CTk):
             master=self,
             segmented_button_fg_color="gray30",
             segmented_button_unselected_color="gray30",
-            border_color="gray30",
-            border_width=2,
+            border_color=BORDER_COLOR,
+            border_width=BORDER_WIDTH,
             command=self.click_tab,
         )
-        self.tabview.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
-        for tab in TABS_KEYS:
-            self.tabview.add(name=tab)
+        self.tabview.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
+        self.tabs = [
+            "Chat",
+            "Logo",
+            "List",
+        ]
+        self.tabview.add(name=self.tabs[0])
+        self.sub_chat = SubChat(master=self.tabview.tab(self.tabs[0]))
+
+        self.tabview.add(name=self.tabs[1])
+        self.sub_logo = SubLogo(master=self.tabview.tab(self.tabs[1]))
+
+        self.tabview.add(name=self.tabs[2])
+        self.sub_list = SubList(master=self.tabview.tab(self.tabs[2]))
+
         self.tab_current = self.tabview.get()
         self.click_tab()
-
-        self.sub_chat = SubChat(master=self.tabview.tab(TABS_KEYS[0]))
-        self.sub_logo = SubLogo(master=self.tabview.tab(TABS_KEYS[1]))
-        self.sub_list = SubList(master=self.tabview.tab(TABS_KEYS[2]))
 
         self.bind('<Return>', self.click_return)
         self.bind('<Alt-Right>', self.click_arrow_right)
@@ -71,9 +72,9 @@ class MiniChat(customtkinter.CTk):
         logger.debug("0")
 
         tab_previous = self.tab_current
-        index_current = TABS_KEYS.index(self.tab_current)
-        index_next = min(len(TABS_KEYS) - 1, index_current + 1)
-        self.tab_current = TABS_KEYS[index_next]
+        index_current = self.tabs.index(self.tab_current)
+        index_next = min(len(self.tabs) - 1, index_current + 1)
+        self.tab_current = self.tabs[index_next]
         self.tabview.set(self.tab_current)
 
         logger.info("%s --> %s", tab_previous, self.tab_current)
@@ -83,9 +84,9 @@ class MiniChat(customtkinter.CTk):
         logger.debug("0")
 
         tab_previous = self.tab_current
-        index_current = TABS_KEYS.index(self.tab_current)
+        index_current = self.tabs.index(self.tab_current)
         index_next = max(0, index_current - 1)
-        self.tab_current = TABS_KEYS[index_next]
+        self.tab_current = self.tabs[index_next]
         self.tabview.set(self.tab_current)
 
         logger.info("%s --> %s", tab_previous, self.tab_current)
@@ -94,13 +95,13 @@ class MiniChat(customtkinter.CTk):
     def click_return(self, event=None) -> None:
         logger.debug("0")
 
-        if self.tab_current == TABS_KEYS[0]:
+        if self.tab_current == self.tabs[0]:
             self.sub_chat.send_message()
 
-        if self.tab_current == TABS_KEYS[1]:
+        if self.tab_current == self.tabs[1]:
             self.sub_logo.generate_logo()
 
-        if self.tab_current == TABS_KEYS[2]:
+        if self.tab_current == self.tabs[2]:
             self.sub_list.add_item()
 
         logger.info("%s", self.tab_current)

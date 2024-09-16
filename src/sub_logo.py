@@ -1,17 +1,17 @@
-import os
 import customtkinter
 
 from PIL import Image
 from sub_abc import SubABC
 from logger_config import logger
-from global_variable import SUB_METHOD
-
-
-# TODO: put these (inc. padx/y, border_width...) into a separate file for global variable
-# TODO: add abstract class for set_sub_method
-SIZE_LOGO = (256, 256)
-PATH_LOGO = os.path.join(os.path.dirname(__file__), "..", "png")
-PATH_LOGO_DEFAULT = os.path.join(PATH_LOGO, "minichat.png")
+from global_variable import (
+    PADX,
+    PADY,
+    BORDER_WIDTH,
+    BORDER_COLOR,
+    SIZE_LOGO,
+    PATH_PNG_MINICHAT,
+    SUB_METHOD,
+)
 
 
 class SubLogo(customtkinter.CTkFrame, SubABC):
@@ -25,22 +25,22 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
         master.grid_rowconfigure(1, weight=1)
 
         self.frame_prompt = customtkinter.CTkFrame(master=master, fg_color="transparent")
-        self.frame_prompt.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
+        self.frame_prompt.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="ew")
         self.frame_prompt.grid_columnconfigure(0, weight=1)
 
         self.frame_logo = customtkinter.CTkFrame(master=master, fg_color="transparent")
-        self.frame_logo.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")
+        self.frame_logo.grid(row=1, column=0, padx=PADX, pady=PADY, sticky="nsew")
         self.frame_logo.grid_rowconfigure(0, weight=1)
         self.frame_logo.grid_columnconfigure(0, weight=1)
 
         self.frame_generate = customtkinter.CTkFrame(master=master, fg_color="transparent")
-        self.frame_generate.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
+        self.frame_generate.grid(row=2, column=0, padx=PADX, pady=PADY, sticky="ew")
         self.frame_generate.grid_columnconfigure(0, weight=1)
 
         self.entry_prompt = customtkinter.CTkEntry(master=self.frame_prompt, placeholder_text="Prompt of Logo", justify="center")
         self.entry_prompt.grid(row=0, column=0, padx=0, pady=0, sticky="ew")
 
-        self.path_logo = PATH_LOGO_DEFAULT
+        self.path_logo = PATH_PNG_MINICHAT
         logo = customtkinter.CTkImage(
             dark_image=Image.open(self.path_logo),
             size=SIZE_LOGO
@@ -49,7 +49,7 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
         self.label_logo = customtkinter.CTkLabel(master=self.frame_logo, image=logo, text="", justify="center")
         self.label_logo.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
 
-        self.button_generate = customtkinter.CTkButton(master=self.frame_generate, text="Generate", border_width=2, border_color="gray30", command=self.generate_logo)
+        self.button_generate = customtkinter.CTkButton(master=self.frame_generate, text="Generate", border_width=BORDER_WIDTH, border_color=BORDER_COLOR, command=self.generate_logo)
         self.button_generate.grid(row=0, column=0, padx=0, pady=0, sticky="ew")
 
         self.set_sub_method()
