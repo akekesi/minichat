@@ -38,7 +38,7 @@ class SubChat(customtkinter.CTkFrame, SubABC):
         self.entry_role.grid(row=0, column=0, padx=0, pady=0, sticky="ew")
 
         self.textbox_chat = customtkinter.CTkTextbox(master=self.frame_chat, border_width=BORDER_WIDTH, border_color=BORDER_COLOR, activate_scrollbars=True, state="disabled")
-        self.textbox_chat.grid(row=0, column=0, sticky="nsew")
+        self.textbox_chat.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
 
         self.entry_message = customtkinter.CTkEntry(master=self.frame_message, placeholder_text="Message", justify="left")
         self.entry_message.grid(row=0, column=0, padx=0, pady=0, sticky="ew")

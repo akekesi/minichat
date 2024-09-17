@@ -5,6 +5,7 @@ import customtkinter
 
 from PIL import Image
 from typing import Dict
+from open_item import OpenItem
 from logger_config import logger
 from global_variable import (
     PADX,
@@ -161,6 +162,15 @@ class SubList(customtkinter.CTkFrame):
 
     def open_item(self, name: str) -> None:
         logger.debug("0")
+
+        path_chat=os.path.join(PATH_LIST, name, f"{name}.txt")
+        path_logo=os.path.join(PATH_LIST, name, f"{name}.png")
+        OpenItem(
+            name=name,
+            path_chat=path_chat,
+            path_logo=path_logo,
+        )
+
         logger.info("%s", name)
         logger.debug("1")
 

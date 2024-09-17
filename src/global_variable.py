@@ -2,12 +2,18 @@ import os
 import json
 
 
+NAME = "MiniChat"
+
 PADX = 10
 PADY = 10
 BORDER_WIDTH = 2
 BORDER_COLOR = "gray30"
 
 SIZE_MINICHAT = {
+    "width": 450,
+    "height": 550,
+}
+SIZE_OPEN_ITEM = {
     "width": 450,
     "height": 550,
 }

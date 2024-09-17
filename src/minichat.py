@@ -5,6 +5,7 @@ from sub_logo import SubLogo
 from sub_list import SubList
 from logger_config import logger
 from global_variable import (
+    NAME,
     PADX,
     PADY,
     BORDER_WIDTH,
@@ -19,7 +20,7 @@ class MiniChat(customtkinter.CTk):
         logger.debug("0")
         super().__init__()
 
-        self.title("MiniChat")
+        self.title(NAME)
         self.geometry(f"{SIZE_MINICHAT["width"]}x{SIZE_MINICHAT["height"]}")
         self.minsize(width=SIZE_MINICHAT["width"], height=SIZE_MINICHAT["height"])
         self.iconbitmap(PATH_ICO_MINICHAT)
@@ -27,12 +28,20 @@ class MiniChat(customtkinter.CTk):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
+        self.set_tab()
+        self.set_bind()
+
+        logger.debug("1")
+
+    def set_tab(self) -> None:
+        logger.debug("0")
+
         self.tabview = customtkinter.CTkTabview(
             master=self,
-            segmented_button_fg_color="gray30",
-            segmented_button_unselected_color="gray30",
-            border_color=BORDER_COLOR,
+            segmented_button_fg_color=BORDER_COLOR,
+            segmented_button_unselected_color=BORDER_COLOR,
             border_width=BORDER_WIDTH,
+            border_color=BORDER_COLOR,
             command=self.click_tab,
         )
         self.tabview.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
@@ -52,6 +61,11 @@ class MiniChat(customtkinter.CTk):
 
         self.tab_current = self.tabview.get()
         self.click_tab()
+
+        logger.debug("1")
+
+    def set_bind(self) -> None:
+        logger.debug("0")
 
         self.bind('<Return>', self.click_return)
         self.bind('<Alt-Right>', self.click_arrow_right)
