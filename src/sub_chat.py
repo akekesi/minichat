@@ -12,7 +12,7 @@ from global_variable import (
 
 
 class SubChat(customtkinter.CTkFrame, SubABC):
-    def __init__(self, master):
+    def __init__(self, master) -> None:
         logger.debug("0")
         super().__init__(master=master)
 

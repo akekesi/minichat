@@ -11,7 +11,6 @@ from global_variable import (
     BORDER_COLOR,
     SIZE_OPEN_ITEM,
     SIZE_LOGO,
-    PATH_PNG_MINICHAT,
 )
 
 
@@ -35,7 +34,6 @@ class OpenItem(customtkinter.CTkToplevel):
         self.wm_iconbitmap()
         icon_photo = PhotoImage(file=self.path_logo)
         self.after(200, lambda: self.iconphoto(False, icon_photo))
-
 
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)

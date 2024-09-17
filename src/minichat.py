@@ -16,7 +16,7 @@ from global_variable import (
 
 
 class MiniChat(customtkinter.CTk):
-    def __init__(self):
+    def __init__(self) -> None:
         logger.debug("0")
         super().__init__()
 
