@@ -16,11 +16,11 @@ from global_variable import (
 
 class OpenItem(customtkinter.CTkToplevel):
     def __init__(
-            self,
-            name: str,
-            path_chat: str,
-            path_logo: str,
-        ):
+        self,
+        name: str,
+        path_chat: str,
+        path_logo: str,
+    ):
         logger.debug("0")
         super().__init__()
 
@@ -29,6 +29,7 @@ class OpenItem(customtkinter.CTkToplevel):
 
         self.title(f"{NAME} - {name}")
         self.attributes("-topmost", True)
+        self.grab_set()
         self.geometry(f"{SIZE_OPEN_ITEM["width"]}x{SIZE_OPEN_ITEM["height"]}")
         self.minsize(width=SIZE_OPEN_ITEM["width"], height=SIZE_OPEN_ITEM["height"])
         self.wm_iconbitmap()
@@ -60,28 +61,11 @@ class OpenItem(customtkinter.CTkToplevel):
             "Chat",
         ]
 
-        # TODO: put in separate class like sub_chat
         self.tabview.add(name=self.tabs[0])
-        self.tabview.tab(self.tabs[0]).grid_rowconfigure(0, weight=1)
-        self.tabview.tab(self.tabs[0]).grid_columnconfigure(0, weight=1)
-        self.textbox_chat = customtkinter.CTkTextbox(master=self.tabview.tab(self.tabs[0]), border_width=BORDER_WIDTH, border_color=BORDER_COLOR, activate_scrollbars=True, state="disabled")
-        self.textbox_chat.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
-        with open(self.path_chat, "r") as f:
-            chat = f.read()
-        self.textbox_chat.configure(state="normal")
-        self.textbox_chat.insert("end", chat)
-        self.textbox_chat.configure(state="disabled")
+        self.sub_chat = SubChat(master=self.tabview.tab(self.tabs[0]), path_chat=self.path_chat)
 
-        # TODO: put in separate class like sub_logo
         self.tabview.add(name=self.tabs[1])
-        self.tabview.tab(self.tabs[1]).grid_rowconfigure(0, weight=1)
-        self.tabview.tab(self.tabs[1]).grid_columnconfigure(0, weight=1)
-        logo = customtkinter.CTkImage(
-            dark_image=Image.open(self.path_logo),
-            size=SIZE_LOGO
-        )
-        self.label_logo = customtkinter.CTkLabel(master=self.tabview.tab(self.tabs[1]), image=logo, text="", justify="center")
-        self.label_logo.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
+        self.sub_logo = SubLogo(master=self.tabview.tab(self.tabs[1]), path_logo=self.path_logo)
 
         self.tab_current = self.tabview.get()
         self.click_tab()
@@ -91,13 +75,19 @@ class OpenItem(customtkinter.CTkToplevel):
     def set_bind(self) -> None:
         logger.debug("0")
 
-        self.bind('<Alt-Right>', self.click_arrow_right)    # FIXME: does not work in sub gui
-        self.bind('<Alt-Left>', self.click_arrow_left)      # FIXME: does not work in sub gui
+        self.bind('<Escape>', self.click_escape)
+        self.bind('<Alt-Right>', self.click_arrow_right)
+        self.bind('<Alt-Left>', self.click_arrow_left)
 
         logger.debug("1")
 
     def click_tab(self) -> None:
         logger.debug("0")
+        logger.debug("1")
+
+    def click_escape(self, event=None) -> None:
+        logger.debug("0")
+        self.destroy()
         logger.debug("1")
 
     def click_arrow_right(self, event=None) -> None:
@@ -123,3 +113,45 @@ class OpenItem(customtkinter.CTkToplevel):
 
         logger.info("%s --> %s", tab_previous, self.tab_current)
         logger.debug("1")
+
+
+class SubChat(customtkinter.CTkFrame):
+    def __init__(
+        self,
+        master,
+        path_chat: str,
+    ) -> None:
+        logger.debug("0")
+        super().__init__(master=master)
+
+        master.grid_rowconfigure(0, weight=1)
+        master.grid_columnconfigure(0, weight=1)
+
+        self.textbox_chat = customtkinter.CTkTextbox(master=master, border_width=BORDER_WIDTH, border_color=BORDER_COLOR, activate_scrollbars=True, state="disabled")
+        self.textbox_chat.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
+
+        with open(path_chat, "r") as f:
+            chat = f.read()
+        self.textbox_chat.configure(state="normal")
+        self.textbox_chat.insert("end", chat)
+        self.textbox_chat.configure(state="disabled")
+
+
+class SubLogo(customtkinter.CTkFrame):
+    def __init__(
+        self,
+        master,
+        path_logo: str,
+    ) -> None:
+        logger.debug("0")
+        super().__init__(master=master)
+
+        master.grid_rowconfigure(0, weight=1)
+        master.grid_columnconfigure(0, weight=1)
+
+        logo = customtkinter.CTkImage(
+            dark_image=Image.open(path_logo),
+            size=SIZE_LOGO
+        )
+        self.label_logo = customtkinter.CTkLabel(master=master, image=logo, text="", justify="center")
+        self.label_logo.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
