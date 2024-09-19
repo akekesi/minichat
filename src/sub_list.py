@@ -52,52 +52,67 @@ class SubList(customtkinter.CTkFrame):
 
         logger.debug("1")
 
-    def add_item(self, item: Dict[str | int, str] | None = None) -> None:
-        # TODO: check whether hash and n have conflict
-        # TODO: split into smaller sub functions 
+    def add_item(self, item: Dict[str, str | int] | None = None) -> None:
         logger.debug("0")
 
-        if item:
-            hash_ = item["hash"]
-            name_ = item["name"]
-            type_ = item["type"]
-        else:
-            hash_ = str(len(LIST_CONFIG))
-            while True:
-                name_ = self.dialog_item_name(
-                    title="Name of Item",
-                    text="Enter the name of the item:",
-                )
-                if name_ == None:
-                    return
-                if not name_:
-                    logger.info("no name")
-                    continue
-                path_item = os.path.join(PATH_LIST, name_)
-                if os.path.exists(path_item):
-                    logger.info("%s is already exist", path_item)
-                    continue
-                break
-            type_ = 0
+        if item == None:
+            item = self.add_item_list()
+        if item == None:
+            return
+        hash_ = item["hash"]
+        name_ = item["name"]
+        type_ = item["type"]
 
-            os.makedirs(path_item)
-            logger.info("%s is created", path_item)
+        self.add_item_widgets(hash_=hash_, name_=name_, type_=type_)
 
-            chat = SUB_METHOD["get"]["chat"]()
-            logo = SUB_METHOD["get"]["logo"]()
-            self.save_chat(name=name_, chat=chat)
-            self.save_logo(name=name_, logo=logo)
+        logger.debug("1")
 
-            item = {
-                hash_: {
-                    "state": 1,
-                    "hash": hash_,
-                    "name": name_,
-                    "type": type_,
-                },
-            }
-            LIST_CONFIG.update(item)
-            self.update_list_config()
+    def add_item_list(self) -> Dict[str, str | int]: # FIXME | None = None:
+        logger.debug("0")
+
+        hash_ = str(len(LIST_CONFIG))
+        while True:
+            name_ = self.dialog_item_name(
+                title="Name of Item",
+                text="Enter the name of the item:",
+            )
+            if name_ == None:
+                return None
+            if not name_:
+                logger.info("no name")
+                continue
+            path_item = os.path.join(PATH_LIST, name_)
+            if os.path.exists(path_item):
+                logger.info("%s is already exist", path_item)
+                continue
+            break
+        type_ = 0
+
+        os.makedirs(path_item)
+        logger.info("%s is created", path_item)
+
+        chat = SUB_METHOD["get"]["chat"]()
+        logo = SUB_METHOD["get"]["logo"]()
+        self.save_chat(name=name_, chat=chat)
+        self.save_logo(name=name_, logo=logo)
+
+        item = {
+            hash_: {
+                "state": 1,
+                "hash": hash_,
+                "name": name_,
+                "type": type_,
+            },
+        }
+        LIST_CONFIG.update(item)
+        self.update_list_config()
+
+        logger.debug("1")
+
+        return item[hash_]
+
+    def add_item_widgets(self, hash_: str, name_: str, type_: int) -> None:
+        logger.debug("0")
 
         n = len(WIDGETS_LIST[0])
 
