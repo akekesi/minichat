@@ -56,3 +56,18 @@ class Logging:
             if n > 5:
                 path_log = os.path.join(path_dir, path_log)
                 os.remove(path=path_log)
+
+
+if __name__ == "__main__":
+    logger = Logging().set_logger(
+        name=__name__,
+        level=logging.DEBUG,
+        path_dir="___PATH_TO_LOG_DIR___",
+    )
+
+    msg_prefix = "test" # pylint: disable=invalid-name
+    logger.debug("%s - debug", msg_prefix)
+    logger.info("%s - info", msg_prefix)
+    logger.warning("%s - warning", msg_prefix)
+    logger.error("%s - error", msg_prefix)
+    logger.critical("%s - critical", msg_prefix)

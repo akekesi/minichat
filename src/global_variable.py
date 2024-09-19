@@ -62,5 +62,5 @@ SUB_METHOD = {
 logger = Logging().set_logger(
     name=NAME,
     level=logging.DEBUG,
-    path_dir=PATH_LOG
+    path_dir=PATH_LOG,
 )

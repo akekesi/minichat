@@ -254,7 +254,7 @@ class SubList(customtkinter.CTkFrame):
     def update_list_config(self) -> None:
         logger.debug("0")
 
-        with open(PATH_LIST_CONFIG, "w", encoding="etf-8") as f:
+        with open(PATH_LIST_CONFIG, "w", encoding="utf-8") as f:
             json.dump(LIST_CONFIG, f, indent=4)
 
         logger.info("list is updated")
