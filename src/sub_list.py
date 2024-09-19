@@ -1,3 +1,9 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=fixme
+
+
 import os
 import json
 import shutil
@@ -6,7 +12,6 @@ import customtkinter
 from PIL import Image
 from typing import Dict
 from open_item import OpenItem
-from logger_config import logger
 from global_variable import (
     PADX,
     PADY,
@@ -19,9 +24,11 @@ from global_variable import (
     WIDGETS_LIST,
     TYPES_ITEM ,
     SUB_METHOD,
+    logger,
 )
 
 
+# pylint: disable=too-many-ancestors
 class SubList(customtkinter.CTkFrame):
     def __init__(self, master) -> None:
         logger.debug("0")
@@ -55,9 +62,9 @@ class SubList(customtkinter.CTkFrame):
     def add_item(self, item: Dict[str, str | int] | None = None) -> None:
         logger.debug("0")
 
-        if item == None:
+        if item is None:
             item = self.add_item_list()
-        if item == None:
+        if item is None:
             return
         hash_ = item["hash"]
         name_ = item["name"]
@@ -76,7 +83,7 @@ class SubList(customtkinter.CTkFrame):
                 title="Name of Item",
                 text="Enter the name of the item:",
             )
-            if name_ == None:
+            if name_ is None:
                 return None
             if not name_:
                 logger.info("no name")
@@ -91,8 +98,8 @@ class SubList(customtkinter.CTkFrame):
         os.makedirs(path_item)
         logger.info("%s is created", path_item)
 
-        chat = SUB_METHOD["get"]["chat"]()
-        logo = SUB_METHOD["get"]["logo"]()
+        chat = SUB_METHOD["get"]["chat"]() # pylint: disable=not-callable
+        logo = SUB_METHOD["get"]["logo"]() # pylint: disable=not-callable
         self.save_chat(name=name_, chat=chat)
         self.save_logo(name=name_, logo=logo)
 
@@ -170,7 +177,7 @@ class SubList(customtkinter.CTkFrame):
             WIDGETS_LIST[1][n] = ""
             WIDGETS_LIST[2][n] = ""
             WIDGETS_LIST[3][n] = ""
-            WIDGETS_LIST[4][n] = "" 
+            WIDGETS_LIST[4][n] = ""
 
         logger.info("delete %i", n)
         logger.debug("1")
@@ -204,7 +211,7 @@ class SubList(customtkinter.CTkFrame):
         logger.debug("0")
 
         path_chat = os.path.join(PATH_LIST, name, f"{name}.txt")
-        with open(path_chat, 'w') as f:
+        with open(path_chat, 'w', encoding="utf-8") as f:
             f.write(chat)
 
         logger.debug("1")
@@ -215,11 +222,11 @@ class SubList(customtkinter.CTkFrame):
         path_logo = os.path.join(PATH_LIST, name, f"{name}.png")
 
         # no logo generated --> path of default logo
-        if type(logo) == str:
+        if isinstance(logo, str):
             shutil.copyfile(logo, path_logo)
 
         # logo generated --> logo in bytes
-        if type(logo) == bytes:
+        if isinstance(logo, bytes):
             with open(path_logo, "wb") as f:
                 f.write(logo)
 
@@ -247,7 +254,7 @@ class SubList(customtkinter.CTkFrame):
     def update_list_config(self) -> None:
         logger.debug("0")
 
-        with open(PATH_LIST_CONFIG, "w") as f:
+        with open(PATH_LIST_CONFIG, "w", encoding="etf-8") as f:
             json.dump(LIST_CONFIG, f, indent=4)
 
         logger.info("list is updated")

@@ -1,8 +1,13 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=fixme
+
+
 import customtkinter
 
 from PIL import Image
 from sub_abc import SubABC
-from logger_config import logger
 from global_variable import (
     PADX,
     PADY,
@@ -11,9 +16,11 @@ from global_variable import (
     SIZE_LOGO,
     PATH_PNG_MINICHAT,
     SUB_METHOD,
+    logger,
 )
 
 
+# pylint: disable=too-many-ancestors
 class SubLogo(customtkinter.CTkFrame, SubABC):
     def __init__(self, master) -> None:
         logger.debug("0")

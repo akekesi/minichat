@@ -1,16 +1,23 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=fixme
+
+
 import customtkinter
 
 from sub_abc import SubABC
-from logger_config import logger
 from global_variable import (
     PADX,
     PADY,
     BORDER_WIDTH,
     BORDER_COLOR,
     SUB_METHOD,
+    logger,
 )
 
 
+# pylint: disable=too-many-ancestors
 class SubChat(customtkinter.CTkFrame, SubABC):
     def __init__(self, master) -> None:
         logger.debug("0")
@@ -61,9 +68,9 @@ class SubChat(customtkinter.CTkFrame, SubABC):
         logger.debug("1")
         return self.textbox_chat.get(0.0, "end")
 
-    def send_message(self, event=None) -> None:
+    def send_message(self) -> None:
         # TODO: What if role is changed?
-        # TODO: --> clear button to strart again?
+        # TODO: --> clear button to start again?
         # TODO: --> check whether role is changed --> popup question
         logger.debug("0")
 
@@ -87,9 +94,10 @@ class SubChat(customtkinter.CTkFrame, SubABC):
             self.textbox_chat.configure(state="disabled")
             self.message_first = False
 
+        answer = "Here comes the answer of AI."
         self.textbox_chat.configure(state="normal")
         self.textbox_chat.insert("end", f"> {message}\n")
-        self.textbox_chat.insert("end", f"> Here comes the answer of AI.\n")
+        self.textbox_chat.insert("end", f"> {answer}\n")
         self.textbox_chat.see("end")
         self.textbox_chat.configure(state="disabled")
         self.entry_message.delete(0, "end")

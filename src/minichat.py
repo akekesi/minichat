@@ -1,9 +1,13 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+
+
 import customtkinter
 
 from sub_chat import SubChat
 from sub_logo import SubLogo
 from sub_list import SubList
-from logger_config import logger
 from global_variable import (
     NAME,
     PADX,
@@ -12,6 +16,7 @@ from global_variable import (
     BORDER_COLOR,
     SIZE_MINICHAT,
     PATH_ICO_MINICHAT,
+    logger,
 )
 
 
@@ -27,6 +32,8 @@ class MiniChat(customtkinter.CTk):
 
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
+
+        self.tab_current = None
 
         self.set_tab()
         self.set_bind()
@@ -82,6 +89,7 @@ class MiniChat(customtkinter.CTk):
         logger.info("%s --> %s", tab_previous, self.tab_current)
         logger.debug("1")
 
+    # pylint: disable=unused-argument
     def click_arrow_right(self, event=None) -> None:
         logger.debug("0")
 
@@ -94,6 +102,7 @@ class MiniChat(customtkinter.CTk):
         logger.info("%s --> %s", tab_previous, self.tab_current)
         logger.debug("1")
 
+    # pylint: disable=unused-argument
     def click_arrow_left(self, event=None) -> None:
         logger.debug("0")
 
@@ -106,6 +115,7 @@ class MiniChat(customtkinter.CTk):
         logger.info("%s --> %s", tab_previous, self.tab_current)
         logger.debug("1")
 
+    # pylint: disable=unused-argument
     def click_return(self, event=None) -> None:
         logger.debug("0")
 

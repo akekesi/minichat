@@ -1,8 +1,12 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+
+
 import customtkinter
 
 from PIL import Image
-from tkinter import PhotoImage 
-from logger_config import logger
+from tkinter import PhotoImage
 from global_variable import (
     NAME,
     PADX,
@@ -11,6 +15,7 @@ from global_variable import (
     BORDER_COLOR,
     SIZE_OPEN_ITEM,
     SIZE_LOGO,
+    logger,
 )
 
 
@@ -38,6 +43,8 @@ class OpenItem(customtkinter.CTkToplevel):
 
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
+
+        self.tab_current = None
 
         self.set_tab()
         self.set_bind()
@@ -85,11 +92,13 @@ class OpenItem(customtkinter.CTkToplevel):
         logger.debug("0")
         logger.debug("1")
 
+    # pylint: disable=unused-argument
     def click_escape(self, event=None) -> None:
         logger.debug("0")
         self.destroy()
         logger.debug("1")
 
+    # pylint: disable=unused-argument
     def click_arrow_right(self, event=None) -> None:
         logger.debug("0")
 
@@ -102,6 +111,7 @@ class OpenItem(customtkinter.CTkToplevel):
         logger.info("%s --> %s", tab_previous, self.tab_current)
         logger.debug("1")
 
+    # pylint: disable=unused-argument
     def click_arrow_left(self, event=None) -> None:
         logger.debug("0")
 
@@ -115,6 +125,7 @@ class OpenItem(customtkinter.CTkToplevel):
         logger.debug("1")
 
 
+# pylint: disable=too-many-ancestors
 class SubChat(customtkinter.CTkFrame):
     def __init__(
         self,
@@ -130,13 +141,14 @@ class SubChat(customtkinter.CTkFrame):
         self.textbox_chat = customtkinter.CTkTextbox(master=master, border_width=BORDER_WIDTH, border_color=BORDER_COLOR, activate_scrollbars=True, state="disabled")
         self.textbox_chat.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
 
-        with open(path_chat, "r") as f:
+        with open(path_chat, "r", encoding="utf-8") as f:
             chat = f.read()
         self.textbox_chat.configure(state="normal")
         self.textbox_chat.insert("end", chat)
         self.textbox_chat.configure(state="disabled")
 
 
+# pylint: disable=too-many-ancestors
 class SubLogo(customtkinter.CTkFrame):
     def __init__(
         self,
