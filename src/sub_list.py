@@ -1,7 +1,6 @@
 # pylint: disable=missing-module-docstring
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
-# pylint: disable=fixme
 
 
 import os
@@ -74,7 +73,7 @@ class SubList(customtkinter.CTkFrame):
 
         logger.debug("1")
 
-    def add_item_list(self) -> Dict[str, str | int]: # FIXME | None = None:
+    def add_item_list(self) -> Dict[str, str | int] | None:
         logger.debug("0")
 
         hash_ = str(len(LIST_CONFIG))

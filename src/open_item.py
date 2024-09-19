@@ -25,7 +25,7 @@ class OpenItem(customtkinter.CTkToplevel):
         name: str,
         path_chat: str,
         path_logo: str,
-    ):
+    ) -> None:
         logger.debug("0")
         super().__init__()
 

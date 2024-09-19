@@ -26,6 +26,7 @@ class MiniChat(customtkinter.CTk):
         super().__init__()
 
         self.title(NAME)
+        self.attributes("-topmost", True)
         self.geometry(f"{SIZE_MINICHAT["width"]}x{SIZE_MINICHAT["height"]}")
         self.minsize(width=SIZE_MINICHAT["width"], height=SIZE_MINICHAT["height"])
         self.iconbitmap(PATH_ICO_MINICHAT)
