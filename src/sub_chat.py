@@ -4,6 +4,8 @@
 # pylint: disable=fixme
 
 
+import time
+import threading
 import customtkinter
 
 from sub_abc import SubABC
@@ -87,6 +89,8 @@ class SubChat(customtkinter.CTkFrame, SubABC):
             logger.debug("2")
             return
 
+        self.button_send.configure(state="disabled")
+
         if self.message_first:
             self.textbox_chat.configure(state="normal")
             self.textbox_chat.insert("end", f"Role: {role}\n")
@@ -94,13 +98,33 @@ class SubChat(customtkinter.CTkFrame, SubABC):
             self.textbox_chat.configure(state="disabled")
             self.message_first = False
 
-        answer = "Here comes the answer of AI."
         self.textbox_chat.configure(state="normal")
         self.textbox_chat.insert("end", f"> {message}\n")
-        self.textbox_chat.insert("end", f"> {answer}\n")
+        self.textbox_chat.insert("end", "> ...\n")
         self.textbox_chat.see("end")
         self.textbox_chat.configure(state="disabled")
+
         self.entry_message.delete(0, "end")
 
-        # TODO: thread for AI
+        thead = threading.Thread(
+            target=self.send_message_thread,
+            kwargs={"message": message},
+        )
+        thead.start()
+
         logger.debug("3")
+
+    def send_message_thread(self, message: str) -> None:
+        logger.debug("0")
+
+        time.sleep(3) # TODO: only to simulate AI (delete this later)
+        answer = "Here comes the answer of AI."
+
+        self.textbox_chat.configure(state="normal")
+        self.textbox_chat.delete("end-5c", "end")
+        self.textbox_chat.insert("end", f"{answer}\n")
+        self.textbox_chat.configure(state="disabled")
+
+        self.button_send.configure(state="normal")
+
+        logger.debug("1")
