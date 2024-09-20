@@ -1,7 +1,16 @@
 #!/bin/bash
 
+# arguments
+suffix=""
+if [ "$1" != "" ]; then
+    suffix+=_$1
+fi
+if [ "$2" == "dev" ]; then
+    suffix+=_$2
+fi
+
 # variables
-venv=.venv_minichat_dev
+venv=".venv_minichat$suffix"
 python_required="Python 3.12.0"
 python_current=$(python --version 2>&1)
 requirements=requirements.txt
@@ -34,7 +43,9 @@ fi
 # pip install
 python -m pip install --upgrade pip > /dev/null
 pip install -r $requirements > /dev/null
-pip install -r $requirements_dev > /dev/null
+if [ "$2" == "dev" ]; then
+    pip install -r $requirements_dev > /dev/null
+fi
 
 # deactivate venv
 if [[ ! -z $VIRTUAL_ENV ]]; then

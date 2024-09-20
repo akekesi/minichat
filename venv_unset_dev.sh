@@ -1,6 +1,16 @@
 #!/bin/bash
 
-venv=.venv_minichat_dev
+# arguments
+suffix=""
+if [ "$1" != "" ]; then
+    suffix+=_$1
+fi
+if [ "$2" == "dev" ]; then
+    suffix+=_$2
+fi
+
+# variables
+venv=".venv_minichat$suffix"
 
 # deactivate venv
 if [[ ! -z $VIRTUAL_ENV ]]; then
