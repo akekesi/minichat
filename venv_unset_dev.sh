@@ -1,6 +1,6 @@
 #!/bin/bash
 
-venv_name=.venv_minichat_dev
+venv=.venv_minichat_dev
 
 # deactivate venv
 if [[ ! -z $VIRTUAL_ENV ]]; then
@@ -8,7 +8,7 @@ if [[ ! -z $VIRTUAL_ENV ]]; then
 fi
 
 # delete venv
-rm -rf $venv_name
+rm -rf $venv
 
 # message
 echo
