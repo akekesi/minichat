@@ -4,6 +4,8 @@
 # pylint: disable=fixme
 
 
+import time
+import threading
 import customtkinter
 
 from PIL import Image
@@ -82,5 +84,28 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
             logger.debug("1")
             return
 
-        # TODO: thread for AI
+        self.button_generate.configure(state="disabled")
+
+        thread = threading.Thread(
+            target=self.generate_logo_thread,
+            kwargs={"prompt": prompt},
+        )
+        thread.start()
+
         logger.debug("2")
+
+
+    def generate_logo_thread(self, prompt: str) -> None:
+        logger.debug("0")
+
+        time.sleep(3) # TODO: only to simulate AI (delete this later)
+        self.path_logo = PATH_PNG_MINICHAT
+        logo = customtkinter.CTkImage(
+            dark_image=Image.open(self.path_logo),
+            size=SIZE_LOGO
+        )
+
+        self.label_logo.configure(image=logo)
+        self.button_generate.configure(state="normal")
+
+        logger.debug("1")
