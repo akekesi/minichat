@@ -1,0 +1,291 @@
+# execute: python -m tests.test_logger_00
+
+# TODO: check function, external function
+# TODO: check stdout
+
+
+import os
+import shutil
+import logging
+import unittest
+
+from src.logger_config import Logging
+
+
+class TestLogging(unittest.TestCase):
+    def __init__(self, methodName: str = "runTest") -> None:
+        super().__init__(methodName)
+
+        self.logger = None
+        self.path_dir = None
+
+    def setUp(self) -> None:
+            # generate dir
+            self.path_dir = self.generate_dir()
+
+            # set up logger
+            name = self.path_dir.rsplit("_")[-1]
+            self.logger = self.set_logger(name=name)
+
+    def tearDown(self) -> None:
+        # close handlers
+        if self.logger is not None:
+            for handler in self.logger.handlers[:]:
+                handler.close()
+                self.logger.removeHandler(handler)
+
+        # shut down logging
+        logging.shutdown()
+        
+        # remove directory
+        if os.path.exists(self.path_dir):
+            shutil.rmtree(self.path_dir)
+
+    def generate_dir(
+        self,
+        name: str = "test_log"
+    ) -> str:
+        n = 0
+        while True:
+            n += 1
+            name = f"{name}_{n}"
+            path_dir = os.path.join(os.path.dirname(__file__), name)
+            if not os.path.exists(path=path_dir):
+                os.mkdir(path_dir)
+                return path_dir
+
+    def set_logger(
+        self,
+        name: str
+    ) -> logging.Logger:
+        logger = Logging().set_logger(
+            name=name,
+            level=logging.DEBUG,
+            path_dir=self.path_dir,
+        )
+        return logger
+
+    def test_logger_000(self) -> None:
+        # existence of logger
+        self.assertIsNotNone(self.logger, "logger instance does not exist")
+
+        # type of logger
+        self.assertIsInstance(self.logger, logging.Logger, "logger is not an instance of logging.Logger")
+
+        # existence of logger directory
+        self.assertTrue(os.path.isdir(self.path_dir), f"{self.path_dir} does not exist")
+
+        # existence of logger file
+        path_log_list = os.listdir(self.path_dir)
+        self.assertEqual(len(path_log_list), 1, f"{self.path_dir} has not exactly one file")
+
+        # type of logger file
+        path_log = path_log_list[0]
+        self.assertTrue(path_log.endswith(".log"), f"{path_log} is not an instance of .log")
+
+    def test_logger_001(self) -> None:
+        # content of logger file - DEBUG
+        print() # only for stdout
+        level = "DEBUG"
+        message = f"test - {level.lower()}"
+        path_log_list = os.listdir(self.path_dir)
+        path_log = os.path.join(self.path_dir, path_log_list[0])
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
+
+        self.logger.debug("%s", message)
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
+
+        log_lines = [line for line in log_lines if level in line and message in line]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
+
+    def test_logger_002(self) -> None:
+        # content of logger file - INFO
+        print() # only for stdout
+        level = "INFO"
+        message = f"test - {level.lower()}"
+        path_log_list = os.listdir(self.path_dir)
+        path_log = os.path.join(self.path_dir, path_log_list[0])
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
+
+        self.logger.info("%s", message)
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
+
+        log_lines = [line for line in log_lines if level in line and message in line]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
+
+    def test_logger_003(self) -> None:
+        # content of logger file - WARNING
+        print() # only for stdout
+        level = "WARNING"
+        message = f"test - {level.lower()}"
+        path_log_list = os.listdir(self.path_dir)
+        path_log = os.path.join(self.path_dir, path_log_list[0])
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
+
+        self.logger.warning("%s", message)
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
+
+        log_lines = [line for line in log_lines if level in line and message in line]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
+
+    def test_logger_004(self) -> None:
+        # content of logger file - ERROR
+        print() # only for stdout
+        level = "ERROR"
+        message = f"test - {level.lower()}"
+        path_log_list = os.listdir(self.path_dir)
+        path_log = os.path.join(self.path_dir, path_log_list[0])
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
+
+        self.logger.error("%s", message)
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
+
+        log_lines = [line for line in log_lines if level in line and message in line]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
+
+    def test_logger_005(self) -> None:
+        # content of logger file - CRITICAL
+        print() # only for stdout
+        level = "CRITICAL"
+        message = f"test - {level.lower()}"
+        path_log_list = os.listdir(self.path_dir)
+        path_log = os.path.join(self.path_dir, path_log_list[0])
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
+
+        self.logger.critical("%s", message)
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
+
+        log_lines = [line for line in log_lines if level in line and message in line]
+        self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
+
+    def test_logger_006(self) -> None:
+        # content of logger file - ALL
+        print() # only for stdout
+        path_log_list = os.listdir(self.path_dir)
+        path_log = os.path.join(self.path_dir, path_log_list[0])
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
+
+        level_d = "DEBUG"
+        message_d = f"test - {level_d.lower()}"
+        self.logger.debug("%s", message_d)
+
+        level_i = "INFO"
+        message_i = f"test - {level_i.lower()}"
+        self.logger.info("%s", message_i)
+
+        level_e = "ERROR"
+        message_e = f"test - {level_e.lower()}"
+        self.logger.error("%s", message_e)
+
+        level_w = "WARNING"
+        message_w = f"test - {level_w.lower()}"
+        self.logger.warning("%s", message_w)
+
+        level_c = "CRITICAL"
+        message_c = f"test - {level_c.lower()}"
+        self.logger.critical("%s", message_c)
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 5, f"{path_log} has not exactly five lines")
+
+        log_lines_d = [line for line in log_lines if level_d in line and message_d in line]
+        self.assertEqual(len(log_lines_d), 1, f"{path_log} has not exactly one {level_d} line with '{message_d}'")
+
+        log_lines_i = [line for line in log_lines if level_i in line and message_i in line]
+        self.assertEqual(len(log_lines_i), 1, f"{path_log} has not exactly one {level_i} line with '{message_i}'")
+
+        log_lines_e = [line for line in log_lines if level_e in line and message_e in line]
+        self.assertEqual(len(log_lines_e), 1, f"{path_log} has not exactly one {level_e} line with '{message_e}'")
+
+        log_lines_w = [line for line in log_lines if level_w in line and message_w in line]
+        self.assertEqual(len(log_lines_w), 1, f"{path_log} has not exactly one {level_w} line with '{message_w}'")
+
+        log_lines_c = [line for line in log_lines if level_c in line and message_c in line]
+        self.assertEqual(len(log_lines_c), 1, f"{path_log} has not exactly one {level_c} line with '{message_c}'")
+
+    def just_a_func(self) -> None:
+        print(f"--> just a function")
+
+    def test_logger_007(self) -> None:
+        # max number of files
+        print() # only for stdout
+        path_log_list = os.listdir(self.path_dir)
+        # path_log = os.path.join(self.path_dir, path_log_list[0])
+        path_log = os.path.join(self.path_dir, "asd")
+
+        for n in range(10):
+            # set logger
+            name = f"test_log_{n}"
+            level = logging.DEBUG
+            if n % 2:
+                level = logging.INFO
+            logger = Logging().set_logger(
+                name=name,
+                level=level,
+                path_dir=self.path_dir,
+            )
+            message_added = False
+            if n % 3:
+                message_added = True
+                logger.info("%i: test - %s", n, "info")
+                logger.debug("%i: test - %s", n, "debug")
+
+            # close handlers
+            for handler in logger.handlers[:]:
+                handler.close()
+                logger.removeHandler(handler)
+            # shut down logging
+            logging.shutdown()
+
+            n_file = n + 2 # +2 becasue of setUp and n = 0, 1, 2, ...
+            if 7 < n_file:
+                n_file = 7
+            path_log_list = os.listdir(self.path_dir)
+            # print(f"\
+            #     loop:    {n}\n\
+            #     level:   {level}\n\
+            #     files:   {len(path_log_list)}\n\
+            #     message: {message_added} ↑\
+            # ")
+            self.assertEqual(len(path_log_list), n_file, f"{path_log} has not exactly {n_file} files")
+
+        path_log_list = os.listdir(self.path_dir)
+        self.assertEqual(len(path_log_list), 7, f"{path_log} has not exactly seven files")
+
+
+if __name__ == "__main__":
+    unittest.main()

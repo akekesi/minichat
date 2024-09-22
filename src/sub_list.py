@@ -210,7 +210,7 @@ class SubList(customtkinter.CTkFrame):
         logger.debug("0")
 
         path_chat = os.path.join(PATH_LIST, name, f"{name}.txt")
-        with open(path_chat, 'w', encoding="utf-8") as f:
+        with open(path_chat, "w", encoding="utf-8") as f:
             f.write(chat)
 
         logger.debug("1")

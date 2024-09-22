@@ -74,9 +74,9 @@ class MiniChat(customtkinter.CTk):
     def set_bind(self) -> None:
         logger.debug("0")
 
-        self.bind('<Return>', self.click_return)
-        self.bind('<Alt-Right>', self.click_arrow_right)
-        self.bind('<Alt-Left>', self.click_arrow_left)
+        self.bind("<Return>", self.click_return)
+        self.bind("<Alt-Right>", self.click_arrow_right)
+        self.bind("<Alt-Left>", self.click_arrow_left)
 
         logger.debug("1")
 

@@ -1,8 +1,12 @@
-# Byte-compiled
+# byte-compiled
 __pycache__/
 
-# Environments
+# environment
 .venv*
 
-# Logs
+# log
 *.log
+
+# test / coverage
+htmlcov/
+.coverage

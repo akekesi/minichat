@@ -22,10 +22,11 @@ class Logging:
         logger_ = logging.getLogger(name=name)
         logger_.setLevel(level=level)
 
-        # Check if the logger already has handlers to avoid adding handlers multiple times.
+        # check if the logger already has handlers
+        # to avoid adding handlers multiple times
+        self.clean_log_dir(path_dir=path_dir)
         if not logger_.handlers:
-            self.clean_log(path_dir=path_dir)
-            path_log = self.get_path_log(path_dir=path_dir)
+            path_log = self.generate_path_log(path_dir=path_dir)
             formatter = logging.Formatter(
                 "%(asctime)s %(levelname)s %(filename)s %(funcName)s: %(message)s"
             )
@@ -41,14 +42,14 @@ class Logging:
 
         return logger_
 
-    def get_path_log(self, path_dir: str) -> str:
+    def generate_path_log(self, path_dir: str) -> str:
         while True:
             current_time = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
             path_log = os.path.join(path_dir, f"{current_time}.log")
             if not os.path.exists(path=path_log):
                 return path_log
 
-    def clean_log(self, path_dir: str) -> None:
+    def clean_log_dir(self, path_dir: str) -> None:
         path_log_list = [
             path_log for path_log in os.listdir(path_dir) if os.path.splitext(path_log)[1] == ".log"
         ]

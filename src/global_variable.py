@@ -35,7 +35,7 @@ PATH_LOG = os.path.join(os.path.dirname(__file__), "..", "log")     # TODO: chec
 PATH_PNG = os.path.join(os.path.dirname(__file__), "..", "png")     # TODO: check existence & logger
 PATH_PNG_MINICHAT = os.path.join(PATH_PNG, "minichat.png")          # TODO: check existence & logger
 
-with open(PATH_LIST_CONFIG, 'r', encoding="utf-8") as f:            # TODO: try/except & logger
+with open(PATH_LIST_CONFIG, "r", encoding="utf-8") as f:            # TODO: try/except & logger
     LIST_CONFIG = json.load(f)
 
 WIDGETS_LIST = [
