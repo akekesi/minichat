@@ -1,7 +1,18 @@
-# execute: python -m tests.test_logger_00
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=unnecessary-comprehension
+# pylint: disable=too-many-locals
+# pylint: disable=line-too-long
+# pylint: disable=fixme
 
-# TODO: check function, external function
+
+"""
+execute: python -m tests.test_logger_00
+"""
+
 # TODO: check stdout
+# TODO: check external function
 
 
 import os
@@ -20,12 +31,12 @@ class TestLogging(unittest.TestCase):
         self.path_dir = None
 
     def setUp(self) -> None:
-            # generate dir
-            self.path_dir = self.generate_dir()
+        # generate dir
+        self.path_dir = self.generate_dir()
 
-            # set up logger
-            name = self.path_dir.rsplit("_")[-1]
-            self.logger = self.set_logger(name=name)
+        # set up logger
+        name = self.path_dir.rsplit("_")[-1]
+        self.logger = self.set_logger(name=name)
 
     def tearDown(self) -> None:
         # close handlers
@@ -36,7 +47,7 @@ class TestLogging(unittest.TestCase):
 
         # shut down logging
         logging.shutdown()
-        
+
         # remove directory
         if os.path.exists(self.path_dir):
             shutil.rmtree(self.path_dir)
@@ -237,15 +248,12 @@ class TestLogging(unittest.TestCase):
         log_lines_c = [line for line in log_lines if level_c in line and message_c in line]
         self.assertEqual(len(log_lines_c), 1, f"{path_log} has not exactly one {level_c} line with '{message_c}'")
 
-    def just_a_func(self) -> None:
-        print(f"--> just a function")
-
     def test_logger_007(self) -> None:
         # max number of files
         print() # only for stdout
         path_log_list = os.listdir(self.path_dir)
-        # path_log = os.path.join(self.path_dir, path_log_list[0])
-        path_log = os.path.join(self.path_dir, "asd")
+        path_log = os.path.join(self.path_dir, path_log_list[0])
+        # path_log = os.path.join(self.path_dir, "asd")
 
         for n in range(10):
             # set logger
@@ -258,9 +266,9 @@ class TestLogging(unittest.TestCase):
                 level=level,
                 path_dir=self.path_dir,
             )
-            message_added = False
+            # message_added = False     # only for print(...)
             if n % 3:
-                message_added = True
+                # message_added = True  # only for print(...)
                 logger.info("%i: test - %s", n, "info")
                 logger.debug("%i: test - %s", n, "debug")
 
@@ -271,9 +279,7 @@ class TestLogging(unittest.TestCase):
             # shut down logging
             logging.shutdown()
 
-            n_file = n + 2 # +2 becasue of setUp and n = 0, 1, 2, ...
-            if 7 < n_file:
-                n_file = 7
+            n_file = min(n + 2, 7) # +2 becasue of setUp and n = 0, 1, 2, ...
             path_log_list = os.listdir(self.path_dir)
             # print(f"\
             #     loop:    {n}\n\
@@ -285,6 +291,47 @@ class TestLogging(unittest.TestCase):
 
         path_log_list = os.listdir(self.path_dir)
         self.assertEqual(len(path_log_list), 7, f"{path_log} has not exactly seven files")
+
+    def test_logger_008(self) -> None:
+        # content of logger file using method
+        print() # only for stdout
+        path_log_list = os.listdir(self.path_dir)
+        path_log = os.path.join(self.path_dir, path_log_list[0])
+
+
+        level_i = "INFO"
+        message_i = f"test - {level_i.lower()}"
+        self.logger.info(message_i)
+        level_i_m = "INFO"
+        message_i_m = self.add_log_info()
+        level_d_m = "DEBUG"
+        message_d_m = self.add_log_debug()
+        self.add_log_info()
+        self.add_log_debug()
+        self.add_log_debug()
+
+        with open(path_log, "r", encoding="utf-8") as file:
+            log_lines = [line for line in file]
+        self.assertEqual(len(log_lines), 6, f"{path_log} has not exactly five lines")
+
+        log_lines_i = [line for line in log_lines if level_i in line and message_i in line]
+        self.assertEqual(len(log_lines_i), 1, f"{path_log} has not exactly two {level_i} line with '{message_i}'")
+
+        log_lines_i_m = [line for line in log_lines if level_i_m in line and message_i_m in line]
+        self.assertEqual(len(log_lines_i_m), 2, f"{path_log} has not exactly two {level_i_m} line with '{message_i_m}'")
+
+        log_lines_d_m = [line for line in log_lines if level_d_m in line and message_d_m in line]
+        self.assertEqual(len(log_lines_d_m), 3, f"{path_log} has not exactly three {level_d_m} line with '{message_d_m}'")
+
+    def add_log_info(self) -> None:
+        message = "test method - info"
+        self.logger.info(message)
+        return message
+
+    def add_log_debug(self) -> None:
+        message = "test method - debug"
+        self.logger.debug(message)
+        return message
 
 
 if __name__ == "__main__":
