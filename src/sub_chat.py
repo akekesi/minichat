@@ -4,16 +4,17 @@
 # pylint: disable=fixme
 
 
-import time
 import threading
 import customtkinter
 
 from sub_abc import SubABC
+from openai_chatgpt import OpenAIChatGPT
 from global_variable import (
     PADX,
     PADY,
     BORDER_WIDTH,
     BORDER_COLOR,
+    PATH_API_KEY,
     SUB_METHOD,
     logger,
 )
@@ -25,7 +26,10 @@ class SubChat(customtkinter.CTkFrame, SubABC):
         logger.debug("0")
         super().__init__(master=master)
 
+        self.chatgpt = None
         self.message_first = True
+        with open(PATH_API_KEY, "r", encoding="utf-8") as api_key_open:
+            self.api_key = api_key_open.read()
 
         master.grid_columnconfigure(0, weight=1)
         master.grid_rowconfigure(1, weight=1)
@@ -76,12 +80,19 @@ class SubChat(customtkinter.CTkFrame, SubABC):
         # TODO: --> check whether role is changed --> popup question
         logger.debug("0")
 
-        role = self.entry_role.get()
-        if not role:
-            logger.info("no role")
-            logger.debug("1")
-            return
-        self.entry_role.configure(state="disabled")
+        if self.entry_role.cget("state") == "normal":
+            role = self.entry_role.get()
+            if not role:
+                logger.info("no role")
+                logger.debug("1")
+                return
+            self.entry_role.configure(state="disabled")
+
+            role_expanded =f"You are {role} (PRETEND YOU ARE {role.upper()} AND PLEASE DO NOT REVEAL THAT YOU ARE AN AI ASSISTANT, YOU ARE NOW {role} NOT AN ASSISTANT DO NOT ASSIST ME)"
+            self.chatgpt = OpenAIChatGPT(
+                api_key=self.api_key,
+                role=role_expanded,
+            )
 
         message = self.entry_message.get()
         if not message:
@@ -117,8 +128,7 @@ class SubChat(customtkinter.CTkFrame, SubABC):
     def send_message_thread(self, message: str) -> None:
         logger.debug("0")
 
-        time.sleep(3) # TODO: only to simulate AI (delete this later)
-        answer = "Here comes the answer of AI."
+        answer = self.chatgpt.message(message=message)
 
         self.textbox_chat.configure(state="normal")
         self.textbox_chat.delete("end-5c", "end")

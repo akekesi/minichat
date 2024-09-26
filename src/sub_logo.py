@@ -3,13 +3,19 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=fixme
 
+# TODO: error handling
+# openai.BadRequestError: Error code: 400 - {'error': {'code': 'content_policy_violation'
+# request.get(timeout)
 
-import time
+
+import io
+import requests
 import threading
 import customtkinter
 
 from PIL import Image
 from sub_abc import SubABC
+from openai_dall_e import OpenAIDallE
 from global_variable import (
     PADX,
     PADY,
@@ -17,6 +23,7 @@ from global_variable import (
     BORDER_COLOR,
     SIZE_LOGO,
     PATH_PNG_MINICHAT,
+    PATH_API_KEY,
     SUB_METHOD,
     logger,
 )
@@ -28,7 +35,8 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
         logger.debug("0")
         super().__init__(master=master)
 
-        self.message_first = True
+        with open(PATH_API_KEY, "r", encoding="utf-8") as api_key_open:
+            self.api_key = api_key_open.read()
 
         master.grid_columnconfigure(0, weight=1)
         master.grid_rowconfigure(1, weight=1)
@@ -49,9 +57,9 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
         self.entry_prompt = customtkinter.CTkEntry(master=self.frame_prompt, placeholder_text="Prompt of Logo", justify="center")
         self.entry_prompt.grid(row=0, column=0, padx=0, pady=0, sticky="ew")
 
-        self.path_logo = PATH_PNG_MINICHAT
+        self.logo_str_bytes = PATH_PNG_MINICHAT
         logo = customtkinter.CTkImage(
-            dark_image=Image.open(self.path_logo),
+            dark_image=Image.open(self.logo_str_bytes),
             size=SIZE_LOGO
         )
         self.label_logo = customtkinter.CTkLabel(master=self.frame_logo, image=logo, text="", justify="center")
@@ -73,7 +81,7 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
     def get_logo(self) -> str:
         logger.debug("0")
         logger.debug("1")
-        return self.path_logo
+        return self.logo_str_bytes
 
     def generate_logo(self) -> None:
         logger.debug("0")
@@ -94,17 +102,21 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
 
         logger.debug("2")
 
-
     def generate_logo_thread(self, prompt: str) -> None:
         logger.debug("0")
 
-        time.sleep(3) # TODO: only to simulate AI (delete this later)
-        self.path_logo = PATH_PNG_MINICHAT
+        dall_e = OpenAIDallE(api_key=self.api_key)
+        prompt_expanded = f"{prompt} (IN FLAT ART STYLE)"
+        url = dall_e.generate(prompt=prompt_expanded)
+
+        logo_bytes = requests.get(url).content
+        logo_bytesio = io.BytesIO(logo_bytes)
         logo = customtkinter.CTkImage(
-            dark_image=Image.open(self.path_logo),
+            dark_image=Image.open(logo_bytesio),
             size=SIZE_LOGO
         )
 
+        self.logo_str_bytes = logo_bytes
         self.label_logo.configure(image=logo)
         self.button_generate.configure(state="normal")
 

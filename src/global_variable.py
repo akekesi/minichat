@@ -27,15 +27,16 @@ SIZE_OPEN_ITEM = {
 SIZE_LOGO = (256, 256)
 SIZE_LOGO_LIST = (25, 25)
 
-PATH_ICO = os.path.join(os.path.dirname(__file__), "..", "ico")     # TODO: check existence & logger
-PATH_ICO_MINICHAT = os.path.join(PATH_ICO, "minichat.ico")          # TODO: check existence & logger
-PATH_LIST = os.path.join(os.path.dirname(__file__), "..", "list")   # TODO: check existence & logger
-PATH_LIST_CONFIG = os.path.join(PATH_LIST, "list_config.json")      # TODO: check existence & logger
-PATH_LOG = os.path.join(os.path.dirname(__file__), "..", "log")     # TODO: check existence & logger
-PATH_PNG = os.path.join(os.path.dirname(__file__), "..", "png")     # TODO: check existence & logger
-PATH_PNG_MINICHAT = os.path.join(PATH_PNG, "minichat.png")          # TODO: check existence & logger
+PATH_ICO = os.path.join(os.path.dirname(__file__), "..", "ico")         # TODO: check existence & logger
+PATH_ICO_MINICHAT = os.path.join(PATH_ICO, "minichat.ico")              # TODO: check existence & logger
+PATH_LIST = os.path.join(os.path.dirname(__file__), "..", "list")       # TODO: check existence & logger
+PATH_LIST_CONFIG = os.path.join(PATH_LIST, "list_config.json")          # TODO: check existence & logger
+PATH_LOG = os.path.join(os.path.dirname(__file__), "..", "log")         # TODO: check existence & logger
+PATH_PNG = os.path.join(os.path.dirname(__file__), "..", "png")         # TODO: check existence & logger
+PATH_PNG_MINICHAT = os.path.join(PATH_PNG, "minichat.png")              # TODO: check existence & logger
+PATH_API_KEY = os.path.join(os.path.dirname(__file__), "..", "api.key") # TODO: check existence & logger
 
-with open(PATH_LIST_CONFIG, "r", encoding="utf-8") as f:            # TODO: try/except & logger
+with open(PATH_LIST_CONFIG, "r", encoding="utf-8") as f:                # TODO: try/except & logger
     LIST_CONFIG = json.load(f)
 
 WIDGETS_LIST = [
