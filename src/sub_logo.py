@@ -60,7 +60,7 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
         self.logo_str_bytes = PATH_PNG_MINICHAT
         logo = customtkinter.CTkImage(
             dark_image=Image.open(self.logo_str_bytes),
-            size=SIZE_LOGO
+            size=SIZE_LOGO,
         )
         self.label_logo = customtkinter.CTkLabel(master=self.frame_logo, image=logo, text="", justify="center")
         self.label_logo.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
@@ -113,7 +113,7 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
         logo_bytesio = io.BytesIO(logo_bytes)
         logo = customtkinter.CTkImage(
             dark_image=Image.open(logo_bytesio),
-            size=SIZE_LOGO
+            size=SIZE_LOGO,
         )
 
         self.logo_str_bytes = logo_bytes

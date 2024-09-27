@@ -163,7 +163,7 @@ class SubLogo(customtkinter.CTkFrame):
 
         logo = customtkinter.CTkImage(
             dark_image=Image.open(path_logo),
-            size=SIZE_LOGO
+            size=SIZE_LOGO,
         )
         self.label_logo = customtkinter.CTkLabel(master=master, image=logo, text="", justify="center")
         self.label_logo.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")

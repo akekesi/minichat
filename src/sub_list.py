@@ -126,7 +126,7 @@ class SubList(customtkinter.CTkFrame):
         logo_open = Image.open(logo_path)
         logo = customtkinter.CTkImage(
             dark_image=logo_open,
-            size=SIZE_LOGO_LIST
+            size=SIZE_LOGO_LIST,
         )
 
         WIDGETS_LIST[0].append(

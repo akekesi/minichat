@@ -5,6 +5,7 @@
 
 import customtkinter
 
+from PIL import Image
 from sub_chat import SubChat
 from sub_logo import SubLogo
 from sub_list import SubList
@@ -15,7 +16,9 @@ from global_variable import (
     BORDER_WIDTH,
     BORDER_COLOR,
     SIZE_MINICHAT,
+    SIZE_LOGO_LIST,
     PATH_ICO_MINICHAT,
+    PATH_PNG_MINICHAT,
     logger,
 )
 
@@ -30,13 +33,42 @@ class MiniChat(customtkinter.CTk):
         self.minsize(width=SIZE_MINICHAT["width"], height=SIZE_MINICHAT["height"])
         self.iconbitmap(PATH_ICO_MINICHAT)
 
-        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
         self.tab_current = None
 
+        self.set_status()
         self.set_tab()
         self.set_bind()
+
+        logger.debug("1")
+
+    def set_status(self) -> None:
+        logger.debug("0")
+
+        self.frame_status = customtkinter.CTkFrame(master=self, fg_color="transparent")
+        self.frame_status.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
+        self.frame_status.grid_columnconfigure([0, 1], weight=1)
+
+        path_image_api = PATH_PNG_MINICHAT
+        image_api = customtkinter.CTkImage(
+            dark_image=Image.open(path_image_api),
+            size=SIZE_LOGO_LIST,
+        )
+        self.label_api = customtkinter.CTkLabel(master=self.frame_status, text="API-Key", image=image_api, fg_color="red", cursor="hand2")
+        self.label_api.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
+
+        path_image_dir = PATH_PNG_MINICHAT
+        image_dir = customtkinter.CTkImage(
+            dark_image=Image.open(path_image_dir),
+            size=SIZE_LOGO_LIST,
+        )
+        self.label_dir = customtkinter.CTkLabel(master=self.frame_status, text="Dir-Str", image=image_dir, fg_color="green", cursor="hand2")
+        self.label_dir.grid(row=0, column=1, padx=PADX, pady=PADY, sticky="nsew")
+
+        self.label_api.bind(sequence="<Button-1>", command=self.set_api)
+        self.label_dir.bind(sequence="<Button-1>", command=self.set_dir)
 
         logger.debug("1")
 
@@ -51,7 +83,7 @@ class MiniChat(customtkinter.CTk):
             border_color=BORDER_COLOR,
             command=self.click_tab,
         )
-        self.tabview.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
+        self.tabview.grid(row=1, column=0, padx=PADX, pady=PADY, sticky="nsew")
         self.tabs = [
             "Chat",
             "Logo",
@@ -129,6 +161,28 @@ class MiniChat(customtkinter.CTk):
             self.sub_list.add_item()
 
         logger.info("%s", self.tab_current)
+        logger.debug("1")
+
+    def set_api(self, event=None) -> None:
+        logger.debug("0")
+        logger.info("not implemented")
+
+        if self.label_api.cget("fg_color") == "red":
+            self.label_api.configure(fg_color="green")
+        else:
+            self.label_api.configure(fg_color="red")
+
+        logger.debug("1")
+
+    def set_dir(self, evnt=None) -> None:
+        logger.debug("0")
+        logger.info("not implemented")
+
+        if self.label_dir.cget("fg_color") == "red":
+            self.label_dir.configure(fg_color="green")
+        else:
+            self.label_dir.configure(fg_color="red")
+
         logger.debug("1")
 
 

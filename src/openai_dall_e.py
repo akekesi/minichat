@@ -19,7 +19,7 @@ class OpenAIDallE:
             model="dall-e-3",
             n=1,
             quality="standard",
-            size="1024x1024"
+            size="1024x1024",
         )
         return response.data[0].url
 
