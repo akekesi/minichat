@@ -15,7 +15,7 @@ import customtkinter
 
 from PIL import Image
 from sub_abc import SubABC
-from openai_dall_e import OpenAIDallE
+from ai_logo import AILogo
 from global_variable import (
     PADX,
     PADY,
@@ -105,9 +105,9 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
     def generate_logo_thread(self, prompt: str) -> None:
         logger.debug("0")
 
-        dall_e = OpenAIDallE(api_key=self.api_key)
+        ai_logo = AILogo(api_key=self.api_key)
         prompt_expanded = f"{prompt} (IN FLAT ART STYLE)"
-        url = dall_e.generate(prompt=prompt_expanded)
+        url = ai_logo.generate(prompt=prompt_expanded)
 
         logo_bytes = requests.get(url).content
         logo_bytesio = io.BytesIO(logo_bytes)

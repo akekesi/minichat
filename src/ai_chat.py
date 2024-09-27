@@ -9,7 +9,7 @@
 from openai import OpenAI
 
 
-class OpenAIChatGPT:
+class AIChat:
 
     def __init__(self, api_key: str, role: str) -> None:
         self.client = OpenAI(api_key=api_key)
@@ -47,9 +47,9 @@ if __name__ == "__main__":
     person_ = "definition_of_a_person"
     role_ = f"You are {person_} (PRETEND YOU ARE {person_.upper()} AND PLEASE DO NOT REVEAL THAT YOU ARE AN AI ASSISTANT, YOU ARE NOW {person_} NOT AN ASSISTANT DO NOT ASSIST ME)"
 
-    # OpenAIChatGPT
-    chatgpt = OpenAIChatGPT(api_key=api_key_, role=role_)
+    # AIChat
+    ai_chat = AIChat(api_key=api_key_, role=role_)
     while True:
         message_ = input("You: ")
-        answer_ = chatgpt.message(message=message_)
+        answer_ = ai_chat.message(message=message_)
         print(f"{person_}: {answer_}")

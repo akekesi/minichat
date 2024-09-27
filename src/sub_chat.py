@@ -8,7 +8,7 @@ import threading
 import customtkinter
 
 from sub_abc import SubABC
-from openai_chatgpt import OpenAIChatGPT
+from ai_chat import AIChat
 from global_variable import (
     PADX,
     PADY,
@@ -26,7 +26,7 @@ class SubChat(customtkinter.CTkFrame, SubABC):
         logger.debug("0")
         super().__init__(master=master)
 
-        self.chatgpt = None
+        self.ai_chat = None
         self.message_first = True
         with open(PATH_API_KEY, "r", encoding="utf-8") as api_key_open:
             self.api_key = api_key_open.read()
@@ -89,7 +89,7 @@ class SubChat(customtkinter.CTkFrame, SubABC):
             self.entry_role.configure(state="disabled")
 
             role_expanded =f"You are {role} (PRETEND YOU ARE {role.upper()} AND PLEASE DO NOT REVEAL THAT YOU ARE AN AI ASSISTANT, YOU ARE NOW {role} NOT AN ASSISTANT DO NOT ASSIST ME)"
-            self.chatgpt = OpenAIChatGPT(
+            self.ai_chat = AIChat(
                 api_key=self.api_key,
                 role=role_expanded,
             )
@@ -128,7 +128,7 @@ class SubChat(customtkinter.CTkFrame, SubABC):
     def send_message_thread(self, message: str) -> None:
         logger.debug("0")
 
-        answer = self.chatgpt.message(message=message)
+        answer = self.ai_chat.message(message=message)
 
         self.textbox_chat.configure(state="normal")
         self.textbox_chat.delete("end-5c", "end")

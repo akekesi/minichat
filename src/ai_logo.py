@@ -8,7 +8,7 @@
 from openai import OpenAI
 
 
-class OpenAIDallE:
+class AILogo:
 
     def __init__(self, api_key: str) -> None:
         self.client = OpenAI(api_key=api_key)
@@ -27,9 +27,9 @@ class OpenAIDallE:
 if __name__ == "__main__":
     # args
     api_key_ = "openai_api_key"
-    prompt_ = "promt_to_generate_image"
+    prompt_ = "promt_to_generate_logo"
 
-    # OpenAIDallE
-    dalle = OpenAIDallE(api_key=api_key_)
-    image_url = dalle.generate(prompt=prompt_)
-    print(f"image: {image_url}")
+    # AILogo
+    ai_logo = AILogo(api_key=api_key_)
+    logo_url = ai_logo.generate(prompt=prompt_)
+    print(f"logo: {logo_url}")
