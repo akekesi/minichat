@@ -11,8 +11,8 @@ from global_variable import (
     NAME,
     PADX,
     PADY,
-    BORDER_WIDTH,
-    BORDER_COLOR,
+    WIDTH_BORDER,
+    COLOR_BORDER,
     SIZE_OPEN_ITEM,
     SIZE_LOGO,
     logger,
@@ -56,10 +56,10 @@ class OpenItem(customtkinter.CTkToplevel):
 
         self.tabview = customtkinter.CTkTabview(
             master=self,
-            segmented_button_fg_color=BORDER_COLOR,
-            segmented_button_unselected_color=BORDER_COLOR,
-            border_width=BORDER_WIDTH,
-            border_color=BORDER_COLOR,
+            segmented_button_fg_color=COLOR_BORDER,
+            segmented_button_unselected_color=COLOR_BORDER,
+            border_width=WIDTH_BORDER,
+            border_color=COLOR_BORDER,
             command=self.click_tab,
         )
         self.tabview.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
@@ -138,7 +138,7 @@ class SubChat(customtkinter.CTkFrame):
         master.grid_rowconfigure(0, weight=1)
         master.grid_columnconfigure(0, weight=1)
 
-        self.textbox_chat = customtkinter.CTkTextbox(master=master, border_width=BORDER_WIDTH, border_color=BORDER_COLOR, activate_scrollbars=True, state="disabled")
+        self.textbox_chat = customtkinter.CTkTextbox(master=master, border_width=WIDTH_BORDER, border_color=COLOR_BORDER, activate_scrollbars=True, state="disabled")
         self.textbox_chat.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="nsew")
 
         with open(path_chat, "r", encoding="utf-8") as f:

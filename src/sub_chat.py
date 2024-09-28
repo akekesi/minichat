@@ -12,8 +12,8 @@ from ai_chat import AIChat
 from global_variable import (
     PADX,
     PADY,
-    BORDER_WIDTH,
-    BORDER_COLOR,
+    WIDTH_BORDER,
+    COLOR_BORDER,
     PATH_API_KEY,
     SUB_METHOD,
     logger,
@@ -50,13 +50,13 @@ class SubChat(customtkinter.CTkFrame, SubABC):
         self.entry_role = customtkinter.CTkEntry(master=self.frame_role, placeholder_text="Role of AI", justify="center")
         self.entry_role.grid(row=0, column=0, padx=0, pady=0, sticky="ew")
 
-        self.textbox_chat = customtkinter.CTkTextbox(master=self.frame_chat, border_width=BORDER_WIDTH, border_color=BORDER_COLOR, activate_scrollbars=True, state="disabled")
+        self.textbox_chat = customtkinter.CTkTextbox(master=self.frame_chat, border_width=WIDTH_BORDER, border_color=COLOR_BORDER, activate_scrollbars=True, state="disabled")
         self.textbox_chat.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
 
         self.entry_message = customtkinter.CTkEntry(master=self.frame_message, placeholder_text="Message", justify="left")
         self.entry_message.grid(row=0, column=0, padx=0, pady=0, sticky="ew")
 
-        self.button_send = customtkinter.CTkButton(master=self.frame_message, text="Send", width=55, border_width=BORDER_WIDTH, border_color=BORDER_COLOR, command=self.send_message)
+        self.button_send = customtkinter.CTkButton(master=self.frame_message, text="Send", width=55, border_width=WIDTH_BORDER, border_color=COLOR_BORDER, command=self.send_message)
         self.button_send.grid(row=0, column=1, padx=(PADX, 0), pady=0, sticky="ew")
 
         self.set_sub_method()

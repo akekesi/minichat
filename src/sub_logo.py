@@ -19,8 +19,8 @@ from ai_logo import AILogo
 from global_variable import (
     PADX,
     PADY,
-    BORDER_WIDTH,
-    BORDER_COLOR,
+    WIDTH_BORDER,
+    COLOR_BORDER,
     SIZE_LOGO,
     PATH_PNG_MINICHAT,
     PATH_API_KEY,
@@ -65,7 +65,7 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
         self.label_logo = customtkinter.CTkLabel(master=self.frame_logo, image=logo, text="", justify="center")
         self.label_logo.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
 
-        self.button_generate = customtkinter.CTkButton(master=self.frame_generate, text="Generate", border_width=BORDER_WIDTH, border_color=BORDER_COLOR, command=self.generate_logo)
+        self.button_generate = customtkinter.CTkButton(master=self.frame_generate, text="Generate", border_width=WIDTH_BORDER, border_color=COLOR_BORDER, command=self.generate_logo)
         self.button_generate.grid(row=0, column=0, padx=0, pady=0, sticky="ew")
 
         self.set_sub_method()

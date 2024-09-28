@@ -102,14 +102,14 @@ class TestLogging(unittest.TestCase):
         path_log_list = os.listdir(self.path_dir)
         path_log = os.path.join(self.path_dir, path_log_list[0])
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
 
         self.logger.debug("%s", message)
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
 
         log_lines = [line for line in log_lines if level in line and message in line]
@@ -123,14 +123,14 @@ class TestLogging(unittest.TestCase):
         path_log_list = os.listdir(self.path_dir)
         path_log = os.path.join(self.path_dir, path_log_list[0])
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
 
         self.logger.info("%s", message)
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
 
         log_lines = [line for line in log_lines if level in line and message in line]
@@ -144,14 +144,14 @@ class TestLogging(unittest.TestCase):
         path_log_list = os.listdir(self.path_dir)
         path_log = os.path.join(self.path_dir, path_log_list[0])
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
 
         self.logger.warning("%s", message)
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
 
         log_lines = [line for line in log_lines if level in line and message in line]
@@ -165,14 +165,14 @@ class TestLogging(unittest.TestCase):
         path_log_list = os.listdir(self.path_dir)
         path_log = os.path.join(self.path_dir, path_log_list[0])
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
 
         self.logger.error("%s", message)
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
 
         log_lines = [line for line in log_lines if level in line and message in line]
@@ -186,14 +186,14 @@ class TestLogging(unittest.TestCase):
         path_log_list = os.listdir(self.path_dir)
         path_log = os.path.join(self.path_dir, path_log_list[0])
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
 
         self.logger.critical("%s", message)
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one line")
 
         log_lines = [line for line in log_lines if level in line and message in line]
@@ -205,8 +205,8 @@ class TestLogging(unittest.TestCase):
         path_log_list = os.listdir(self.path_dir)
         path_log = os.path.join(self.path_dir, path_log_list[0])
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 0, f"{path_log} is not empty")
 
         level_d = "DEBUG"
@@ -229,8 +229,8 @@ class TestLogging(unittest.TestCase):
         message_c = f"test - {level_c.lower()}"
         self.logger.critical("%s", message_c)
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 5, f"{path_log} has not exactly five lines")
 
         log_lines_d = [line for line in log_lines if level_d in line and message_d in line]
@@ -310,8 +310,8 @@ class TestLogging(unittest.TestCase):
         self.add_log_debug()
         self.add_log_debug()
 
-        with open(path_log, "r", encoding="utf-8") as file:
-            log_lines = [line for line in file]
+        with open(path_log, "r", encoding="utf-8") as f:
+            log_lines = [line for line in f]
         self.assertEqual(len(log_lines), 6, f"{path_log} has not exactly five lines")
 
         log_lines_i = [line for line in log_lines if level_i in line and message_i in line]

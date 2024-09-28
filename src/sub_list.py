@@ -14,8 +14,8 @@ from open_item import OpenItem
 from global_variable import (
     PADX,
     PADY,
-    BORDER_WIDTH,
-    BORDER_COLOR,
+    WIDTH_BORDER,
+    COLOR_BORDER,
     SIZE_LOGO_LIST,
     PATH_LIST,
     PATH_LIST_CONFIG,
@@ -51,7 +51,7 @@ class SubList(customtkinter.CTkFrame):
         self.frame_docs_scrollable.grid(row=0, column=0, sticky="nsew")
         self.frame_docs_scrollable.grid_columnconfigure(1, weight=1)
 
-        self.button_add = customtkinter.CTkButton(master=self.frame_add, text="Add", width=75, border_width=BORDER_WIDTH, border_color=BORDER_COLOR, command=self.add_item)
+        self.button_add = customtkinter.CTkButton(master=self.frame_add, text="Add", width=75, border_width=WIDTH_BORDER, border_color=COLOR_BORDER, command=self.add_item)
         self.button_add.grid(row=0, column=0, padx=(0, 2*PADX+6), pady=0, sticky="e")
 
         self.load_list()
@@ -151,7 +151,7 @@ class SubList(customtkinter.CTkFrame):
         WIDGETS_LIST[2][n].set(TYPES_ITEM[type_])
 
         WIDGETS_LIST[3].append(
-            customtkinter.CTkButton(master=self.frame_docs_scrollable, text="Delete", width=75, border_width=BORDER_WIDTH, border_color=BORDER_COLOR, command=lambda n=n: self.delete_item(n))
+            customtkinter.CTkButton(master=self.frame_docs_scrollable, text="Delete", width=75, border_width=WIDTH_BORDER, border_color=COLOR_BORDER, command=lambda n=n: self.delete_item(n))
         )
         WIDGETS_LIST[3][n].grid(row=n, column=3, padx=PADX, pady=(PADY, 0), sticky="ew")
 
