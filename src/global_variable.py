@@ -44,6 +44,8 @@ PATH_PNG = os.path.join(os.path.dirname(__file__), "..", "png")         # TODO: 
 PATH_PNG_MINICHAT = os.path.join(PATH_PNG, "minichat.png")              # TODO: check existence & logger
 PATH_API_KEY = os.path.join(os.path.dirname(__file__), "..", "api.key") # TODO: check existence & logger
 
+URL_OPENAI = "https://openai.com/"
+
 with open(PATH_LIST_CONFIG, "r", encoding="utf-8") as f:                # TODO: try/except & logger
     LIST_CONFIG = json.load(f)
 

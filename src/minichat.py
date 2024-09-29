@@ -11,6 +11,7 @@ import customtkinter
 from sub_chat import SubChat
 from sub_logo import SubLogo
 from sub_list import SubList
+from sub_hover_message import create_hover_message
 from global_variable import (
     NAME,
     PADX,
@@ -26,6 +27,7 @@ from global_variable import (
     SIZE_MINICHAT,
     PATH_ICO_MINICHAT,
     PATH_API_KEY,
+    URL_OPENAI,
     logger,
 )
 
@@ -102,6 +104,10 @@ class MiniChat(customtkinter.CTk):
 
         self.label_openai = customtkinter.CTkLabel(master=self.frame_info, text="MiniChat is building on OpenAI", text_color=COLOR_INFO, cursor="hand2")
         self.label_openai.grid(row=0, column=1, padx=2*PADX, pady=PADY, sticky="e")
+        create_hover_message(
+            self.label_openai,
+            text=f"Open {URL_OPENAI}",
+        )
 
         self.label_openai.bind(sequence="<Button-1>", command=self.open_openai)
 
@@ -223,10 +229,7 @@ class MiniChat(customtkinter.CTk):
     # pylint: disable=unused-argument
     def open_openai(self, event=None) -> None:
         logger.debug("0")
-
-        url = "https://openai.com/"
-        webbrowser.open(url)
-
+        webbrowser.open(url=URL_OPENAI)
         logger.debug("1")
 
 
