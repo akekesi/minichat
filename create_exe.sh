@@ -74,7 +74,6 @@ sleep 3
 
 # move and rename exe and dependencies
 rm -rf ./exe/"$name"/minichat/_internal/log/*
-rm -rf ./exe/"$name"/minichat/_internal/log/.[!.]*
 mv ./exe/"$name"/minichat/* ./exe/"$name"/
 mv ./exe/"$name"/minichat.exe ./exe/"$name"/"$name".exe
 rm -rf ./exe/"$name"/minichat
