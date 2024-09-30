@@ -13,7 +13,7 @@ fi
 venv=".venv_minichat$suffix"
 
 # deactivate virtual environment if it's active
-if [[ -n "$VIRTUAL_ENV" ]]; then
+if [[ "$venv" == $(basename "$VIRTUAL_ENV") ]]; then
     deactivate
 fi
 
