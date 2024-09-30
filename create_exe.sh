@@ -19,7 +19,7 @@ if [[ "$python_current" != *"$python_required"* ]]; then
     echo "Virtual environment '$venv' is not created."
     echo "Python version current:  $python_current"
     echo "Python version required: $python_required"
-    exit 0
+    return 0
 fi
 
 # create directory if it doesn't exist
@@ -27,7 +27,7 @@ if [ ! -d "./exe/$name" ]; then
     mkdir -p "./exe/$name"
 else
     echo "Directory 'exe/$name' already exists."
-    exit 0
+    return 0
 fi
 
 # create virtual environment
@@ -35,7 +35,7 @@ if [ ! -d "$venv" ]; then
     python -m venv "$venv"
 else
     echo "Virtual environment '$venv' already exists."
-    exit 0
+    return 0
 fi
 
 # activate virtual environment
@@ -43,7 +43,7 @@ if [[ -z "$VIRTUAL_ENV" ]]; then
     . "$venv/Scripts/activate"
 else
     echo "Virtual environment '$venv' is already activated."
-    exit 0
+    return 0
 fi
 
 # upgrade pip and install requirements
