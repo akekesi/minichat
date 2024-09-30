@@ -69,6 +69,9 @@ fi
 # delete the virtual environment after use
 rm -rf "$venv"
 
+# wait for 3 seconds to avoid 'permission denied' of the next mv commands
+sleep 3
+
 # move and rename exe and dependencies
 rm -rf ./exe/"$name"/minichat/_internal/log/*
 rm -rf ./exe/"$name"/minichat/_internal/log/.[!.]*
@@ -78,4 +81,4 @@ rm -rf ./exe/"$name"/minichat
 
 # message indicating completion
 echo
-echo "exe/$name/$name.exe is created."
+echo "Executable 'exe/$name/$name.exe' is created."
