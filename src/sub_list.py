@@ -10,8 +10,8 @@ import customtkinter
 
 from PIL import Image
 from typing import Dict
-from open_item import OpenItem
-from global_variable import (
+from src.open_item import OpenItem
+from src.global_variable import (
     PADX,
     PADY,
     WIDTH_BORDER,

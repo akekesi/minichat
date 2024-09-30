@@ -4,12 +4,13 @@
 # pylint: disable=fixme
 
 
+import os
 import threading
 import customtkinter
 
-from sub_abc import SubABC
-from ai_chat import AIChat
-from global_variable import (
+from src.sub_abc import SubABC
+from src.ai_chat import AIChat
+from src.global_variable import (
     PADX,
     PADY,
     WIDTH_BORDER,
@@ -26,13 +27,11 @@ class SubChat(customtkinter.CTkFrame, SubABC):
         logger.debug("0")
         super().__init__(master=master)
 
-        self.ai_chat = None
-        self.message_first = True
-        with open(PATH_API_KEY, "r", encoding="utf-8") as api_key_open:
-            self.api_key = api_key_open.read()
-
         master.grid_columnconfigure(0, weight=1)
         master.grid_rowconfigure(1, weight=1)
+
+        self.ai_chat = None
+        self.message_first = True
 
         self.frame_role = customtkinter.CTkFrame(master=master, fg_color="transparent")
         self.frame_role.grid(row=0, column=0, padx=PADX, pady=PADY, sticky="ew")
@@ -81,23 +80,30 @@ class SubChat(customtkinter.CTkFrame, SubABC):
         logger.debug("0")
 
         if self.entry_role.cget("state") == "normal":
+            if not os.path.exists(PATH_API_KEY):
+                logger.info("no API key")
+                logger.debug("2")
+                return
+            with open(PATH_API_KEY, "r", encoding="utf-8") as f:
+                api_key = f.read()
+
             role = self.entry_role.get()
             if not role:
                 logger.info("no role")
                 logger.debug("1")
                 return
             self.entry_role.configure(state="disabled")
-
             role_expanded =f"You are {role} (PRETEND YOU ARE {role.upper()} AND PLEASE DO NOT REVEAL THAT YOU ARE AN AI ASSISTANT, YOU ARE NOW {role} NOT AN ASSISTANT DO NOT ASSIST ME)"
+
             self.ai_chat = AIChat(
-                api_key=self.api_key,
+                api_key=api_key,
                 role=role_expanded,
             )
 
         message = self.entry_message.get()
         if not message:
             logger.info("no message")
-            logger.debug("2")
+            logger.debug("3")
             return
 
         self.button_send.configure(state="disabled")

@@ -9,14 +9,15 @@
 
 
 import io
+import os
 import requests
 import threading
 import customtkinter
 
 from PIL import Image
-from sub_abc import SubABC
-from ai_logo import AILogo
-from global_variable import (
+from src.sub_abc import SubABC
+from src.ai_logo import AILogo
+from src.global_variable import (
     PADX,
     PADY,
     WIDTH_BORDER,
@@ -34,9 +35,6 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
     def __init__(self, master) -> None:
         logger.debug("0")
         super().__init__(master=master)
-
-        with open(PATH_API_KEY, "r", encoding="utf-8") as api_key_open:
-            self.api_key = api_key_open.read()
 
         master.grid_columnconfigure(0, weight=1)
         master.grid_rowconfigure(1, weight=1)
@@ -105,8 +103,16 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
     def generate_logo_thread(self, prompt: str) -> None:
         logger.debug("0")
 
-        ai_logo = AILogo(api_key=self.api_key)
+        if not os.path.exists(PATH_API_KEY):
+            logger.info("no API key")
+            logger.debug("1")
+            return
+        with open(PATH_API_KEY, "r", encoding="utf-8") as f:
+            api_key = f.read()
+
         prompt_expanded = f"{prompt} (IN FLAT ART STYLE)"
+
+        ai_logo = AILogo(api_key=api_key)
         url = ai_logo.generate(prompt=prompt_expanded)
 
         logo_bytes = requests.get(url).content
@@ -120,4 +126,4 @@ class SubLogo(customtkinter.CTkFrame, SubABC):
         self.label_logo.configure(image=logo)
         self.button_generate.configure(state="normal")
 
-        logger.debug("1")
+        logger.debug("2")

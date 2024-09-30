@@ -7,7 +7,7 @@ import customtkinter
 
 from PIL import Image
 from tkinter import PhotoImage
-from global_variable import (
+from src.global_variable import (
     NAME,
     PADX,
     PADY,

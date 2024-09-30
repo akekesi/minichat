@@ -6,7 +6,7 @@
 import customtkinter
 
 from tkinter import Toplevel
-from global_variable import (
+from src.global_variable import (
     PADX,
     PADY,
     WIDTH_BORDER,

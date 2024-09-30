@@ -1,15 +1,25 @@
 #!/bin/bash
 
-venv=.venv_minichat
+# arguments
+suffix=""
+if [ "$1" != "" ]; then
+    suffix="_$1"
+fi
+if [ "$2" == "dev" ]; then
+    suffix+="_$2"
+fi
 
-# deactivate venv
-if [[ ! -z $VIRTUAL_ENV ]]; then
+# variables
+venv=".venv_minichat$suffix"
+
+# deactivate virtual environment if it's active
+if [[ -n "$VIRTUAL_ENV" ]]; then
     deactivate
 fi
 
-# delete venv
-rm -rf $venv
+# delete the virtual environment
+rm -rf "$venv"
 
-# message
+# message indicating the environment is deleted
 echo
 echo "'$venv' is unset."

@@ -6,7 +6,7 @@ import os
 import json
 import logging
 
-from logger_config import Logging
+from src.logger_config import Logging
 
 
 NAME = "MiniChat"

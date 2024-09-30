@@ -8,11 +8,11 @@ import openai
 import webbrowser
 import customtkinter
 
-from sub_chat import SubChat
-from sub_logo import SubLogo
-from sub_list import SubList
-from sub_hover_message import create_hover_message
-from global_variable import (
+from src.sub_chat import SubChat
+from src.sub_logo import SubLogo
+from src.sub_list import SubList
+from src.sub_hover_message import create_hover_message
+from src.global_variable import (
     NAME,
     PADX,
     PADY,
@@ -101,6 +101,8 @@ class MiniChat(customtkinter.CTk):
 
         self.button_api_key = customtkinter.CTkButton(master=self.frame_info, text="Set API Key", border_width=WIDTH_BORDER, border_color=COLOR_BORDER, command=self.set_api_key)
         self.button_api_key.grid(row=0, column=0, padx=2*PADX, pady=PADY, sticky="w")
+        self.button_api_key.configure(fg_color=COLOR_NOK)
+        self.button_api_key.configure(hover_color=COLOR_NOK_HOVER)
 
         self.label_openai = customtkinter.CTkLabel(master=self.frame_info, text="MiniChat is building on OpenAI", text_color=COLOR_INFO, cursor="hand2")
         self.label_openai.grid(row=0, column=1, padx=2*PADX, pady=PADY, sticky="e")
@@ -211,19 +213,25 @@ class MiniChat(customtkinter.CTk):
     def check_api_key(self) -> bool:
         logger.debug("0")
 
-        client = openai.OpenAI(api_key=self.api_key)
         try:
+            client = openai.OpenAI(api_key=self.api_key)
             client.models.list()
-            logger.info("API key is valid")
+            logger.info("API connection successful")
             self.button_api_key.configure(fg_color=COLOR_OK)
             self.button_api_key.configure(hover_color=COLOR_OK_HOVER)
             logger.debug("1")
             return True
-        except openai.AuthenticationError as e:
-            logger.info(f"API key is not valid\n\t{e}")
+        except openai.APIConnectionError as e:
+            logger.info("API connection failed\n\t%s", e)
             self.button_api_key.configure(fg_color=COLOR_NOK)
             self.button_api_key.configure(hover_color=COLOR_NOK_HOVER)
             logger.debug("2")
+            return False
+        except openai.AuthenticationError as e:
+            logger.info("API key is incorrect\n\t%s", e)
+            self.button_api_key.configure(fg_color=COLOR_NOK)
+            self.button_api_key.configure(hover_color=COLOR_NOK_HOVER)
+            logger.debug("3")
             return False
 
     # pylint: disable=unused-argument
