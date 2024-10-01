@@ -1,89 +1,143 @@
 # MiniChat
-![Status](https://img.shields.io/badge/status-in_progress-yellow.svg)
+<div align="center">
+
+![Status](https://img.shields.io/badge/Status-in_progress-yellow.svg)
+![CI](https://github.com/akekesi/minichat/actions/workflows/ci.yml/badge.svg)
+</div>
+
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-3.12.0-blue)
+![CustomTkinter](https://img.shields.io/badge/CustomTkinter-✔-blue)
+![Shell Script](https://img.shields.io/badge/Shell_Script-✔-blue)
+![OpenAI](https://img.shields.io/badge/OpenAI_API-✔-blue)
+</div>
 
 ## Table of Contents
-1. [About](#about)
-1. [Usage](#usage)
-1. [ToDo](#todo)
+1. [Description](#description)
+2. [Demo](#demo)
+3. [Prerequisites](#prerequisites)
+4. [Usage of Executable](#usage-of-executable)
+5. [Usage of Python Scripts](#usage-of-python-scripts)
+6. [Usage of MiniChat](#usage-of-minichat)
+7. [To-Do](#to-do)
+8. [Authors](#authors)
+9. [Acknowledgements](#acknowledgements)
+10. [License](#license)
 
-## About
-Please note that this project is a work in progress. Some features may not be fully implemented or documented yet.
+## Description
+MiniChat is a [Python](https://www.python.org/) GUI application built with [CustomTkinter](https://customtkinter.tomschimansky.com/) and powered by the [OpenAI API](https://openai.com/). It offers three core features:
 
-## Usage
-### Python 3.12.0
-```
-https://www.python.org/downloads/release/python-3120/
-```
-### OpenAI API Key
-```
-https://platform.openai.com/api-keys
-```
-### Python Packages  
-- With Virtual Environment (using shell script):
-```
+- **Chat**: Communicate with a user-defined entity.
+- **Logo**: Create custom logos for your chat interactions.
+- **List**: Manage a list of chat-logo items (add, delete, modify publicity settings, and view details).
+
+🚧 This project is a work in progress. Some features may be incomplete, untested, or lacking full documentation. 🚧
+
+## Demo
+🚧 Demo is currently in progress 🚧
+
+## Prerequisites
+- [Python 3.12.0](https://www.python.org/downloads/release/python-3120/)
+- [OpenAI API Key](https://platform.openai.com/api-keys)
+
+## Usage of Executable
+Run **MiniChat** by double-clicking the `minichat.exe` file located in the `/exe/minichat` directory.
+
+## Usage of Python Scripts
+
+### 1. Installing Python Packages
+- **With a Virtual Environment** (using a shell script):  
+```bash
 $ . venv_setup.sh arg1 arg2
 ```
-&emsp;&emsp;&emsp;*arg1*:&emsp;the first suffix of the name of the virtual environment  
-&emsp;&emsp;&emsp;*arg2*:&emsp;if it equals "dev"*, the second suffix will be "dev" and the requirements_dev.txt will be installed too.  
--  Without Virtual Environment:
-```
+   - `arg1`: Suffix for naming the virtual environment  
+   - `arg2`: Set to "dev" to include `requirements_dev.txt`  
+   Examples:  
+   ```bash
+   $ . venv_setup.sh              # .venv_minichat
+   $ . venv_setup.sh test         # .venv_minichat_test
+   $ . venv_setup.sh "" dev       # .venv_minichat_dev
+   $ . venv_setup.sh test dev     # .venv_minichat_test_dev
+   ```
+- **Without a Virtual Environment**:  
+```bash
 $ python -m pip install --upgrade pip
 $ pip install -r requirements.txt
 $ pip install -r requirements_dev.txt
 ```
-### Run MiniChat:
-```
+
+### 2. Running MiniChat
+```bash
 $ python -m src.minichat
 ```
-### Execute pylint (only with requirements_dev.txt):
-```
+
+### 3. Running Pylint (with `requirements_dev.txt`)
+```bash
 $ pylint src/<name_of_file>
 ```
-### Execute single unittest (only with requirements_dev.txt):
-```
+
+### 4. Running a Single Unit Test (with `requirements_dev.txt`)
+```bash
 $ python -m test.test_logger_00
 $ python -m test.<name_of_test_file>
 ```
-### Execute every unittest (only with requirements_dev.txt):
-```
+
+### 5. Running All Unit Tests (with `requirements_dev.txt`)
+```bash
 $ python -m unittest discover test
 ```
-### Execute coverage using unittest (only with requirements_dev.txt):
-```
+
+### 6. Running Coverage with Unit Tests (with `requirements_dev.txt`)
+```bash
 $ python -m coverage run -m unittest discover test
 $ python -m coverage report
 $ python -m coverage html
 ```
-### Coverage html report: htmlcov\class_index.html
+View the HTML coverage report at: `htmlcov/index.html`
 
-## ToDo
-- [ ] tests for GUI (using mocks)
-- [ ] tests for logger (stdout)
-- [ ] add video about usage
-- [ ] finish README.md
+## Usage of MiniChat
+After launching the MiniChat GUI, the **Set API Key** button indicates the status of your OpenAI API key (red = invalid, green = valid). You can use this button to update your API key. When the button turns green, you can access the features of the application.
 
-<!--
-just ideas:
-1. [Description](#description)
-1. [Getting Started](#getting_started)
-1. [Installation](#installation)
-1. [Authors](#authors)
-1. [ToDo](#todo)
--->
-<!--
-just ideas:
-## About/Description
-## Demo
+### Chat Tab:
+- Define the entity you want to chat with.
+- Send and receive messages.
 
-## Getting Started
-### Dependencies
-### Installing
-### Executing program/Usage
+### Logo Tab:
+- Define the parameters for the logo you wish to generate.
+- Generate the logo.
 
-## Help
+### List Tab:
+- Add your previously created chats and logos to the list.
+- Modify the visibility of listed items.
+- Delete items from the list.
+- View items.
+
+### Keyboard Shortcuts
+- <kbd>Alt</kbd> + <kbd>Left Arrow</kbd>: Navigate to the next tab to the left.
+- <kbd>Alt</kbd> + <kbd>Right Arrow</kbd>: Navigate to the next tab to the right.
+- <kbd>Enter</kbd>: Trigger the **Send** button on the **Chat** tab.
+- <kbd>Enter</kbd>: Trigger the **Generate** button on the **Logo** tab.
+- <kbd>Enter</kbd>: Trigger the **Add** button on the **List** tab.
+- <kbd>Esc</kbd>: Close any view window opened from the **List** tab.
+
+## To-Do
+- [x] Add GitHub Actions
+- [ ] Add badges (Python, GitHub Actions CI, GitHub Actions Coverage, ...)
+- [ ] Write tests for the GUI (using mocks)
+- [ ] Write tests for logger (stdout)
+- [ ] Implement logger
+- [ ] Add demo, animation, or video
+- [ ] Add license
+- [ ] Create a logo for MiniChat
+- [ ] Complete README.md
+
 ## Authors
-## Version History
+Attila Kékesi
+
+## Acknowledgements
+- [OpenAI](https://openai.com/)
+- [CustomTkinter](https://customtkinter.tomschimansky.com/)
+
 ## License
-## Acknowledgments
-## ToDo
--->
+🚧 License is currently in progress 🚧
