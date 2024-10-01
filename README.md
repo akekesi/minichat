@@ -10,15 +10,15 @@
 Please note that this project is a work in progress. Some features may not be fully implemented or documented yet.
 
 ## Usage
-Python 3.12.0
+### Python 3.12.0
 ```
 https://www.python.org/downloads/release/python-3120/
 ```
-OpenAI API Key
+### OpenAI API Key
 ```
 https://platform.openai.com/api-keys
 ```
-Python Packages  
+### Python Packages  
 - With Virtual Environment (using shell script):
 ```
 $ . venv_setup.sh arg1 arg2
@@ -31,30 +31,30 @@ $ python -m pip install --upgrade pip
 $ pip install -r requirements.txt
 $ pip install -r requirements_dev.txt
 ```
-Run MiniChat:
+### Run MiniChat:
 ```
 $ python -m src.minichat
 ```
-Execute pylint (only with requirements_dev.txt):
+### Execute pylint (only with requirements_dev.txt):
 ```
 $ pylint src/<name_of_file>
 ```
-Execute single unittest (only with requirements_dev.txt):
+### Execute single unittest (only with requirements_dev.txt):
 ```
 $ python -m test.test_logger_00
 $ python -m test.<name_of_test_file>
 ```
-Execute every unittest (only with requirements_dev.txt):
+### Execute every unittest (only with requirements_dev.txt):
 ```
 $ python -m unittest discover test
 ```
-Execute coverage using unittest (only with requirements_dev.txt):
+### Execute coverage using unittest (only with requirements_dev.txt):
 ```
 $ python -m coverage run -m unittest discover test
 $ python -m coverage report
 $ python -m coverage html
 ```
-Coverage html report: htmlcov\class_index.html
+### Coverage html report: htmlcov\class_index.html
 
 ## ToDo
 - [ ] tests for GUI (using mocks)
