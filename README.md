@@ -122,11 +122,18 @@ After launching the MiniChat GUI, the **Set API Key** button indicates the statu
 - <kbd>Esc</kbd>: Close any view window opened from the **List** tab.
 
 ## To-Do
+- [ ] Add version
+- [ ] Add setup.py, .toml
 - [x] Add GitHub Actions
-- [ ] Add badges (Python, GitHub Actions CI, GitHub Actions Coverage, ...)
+- [x] Add badges (Python)
+- [x] Add badges (GitHub Actions CI)
+- [ ] Add badges (GitHub Actions Coverage)
+- [ ] Add badges (Version)
+- [ ] Add badges (...)
+- [ ] Add docstrings (module, class, function)
+- [ ] Fix pylint errors
 - [ ] Write tests for the GUI (using mocks)
 - [ ] Write tests for logger (stdout)
-- [ ] Implement logger
 - [ ] Add demo, animation, or video
 - [ ] Add license
 - [ ] Create a logo for MiniChat
