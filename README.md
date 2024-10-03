@@ -42,6 +42,17 @@ MiniChat is a [Python](https://www.python.org/) GUI application built with [Cust
 - [OpenAI API Key](https://platform.openai.com/api-keys)
 
 ## Usage of Executable
+### 1. Build an executable using shell script
+```bash
+$ . create_exe.sh arg1
+```
+   - `arg1`: Suffix for naming the virtual environment
+   Examples:  
+   ```bash
+   $ . create_exe.sh              # /exe/minichat/minichat.exe
+   $ . create_exe.sh test         # /exe/minichat_test/minichat_test.exe
+   ```
+### 2. Run the executable
 Run **MiniChat** by double-clicking the `minichat.exe` file located in the `/exe/minichat` directory.
 
 ## Usage of Python Scripts
