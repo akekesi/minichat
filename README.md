@@ -147,7 +147,7 @@ After launching the MiniChat GUI, the **Set API Key** button indicates the statu
 - [ ] Write tests for the GUI (using mocks)
 - [ ] Write tests for logger (stdout)
 - [ ] Add demo, animation, or video
-- [ ] Add license
+- [x] Add license
 - [ ] Create a logo for MiniChat
 - [ ] Complete README.md
 - [ ] Update CI.yml [(deprecation of v3 of the artifact actions)](https://github.blog/changelog/2024-04-16-deprecation-notice-v3-of-the-artifact-actions/)
@@ -160,4 +160,4 @@ Attila Kékesi
 - [CustomTkinter](https://customtkinter.tomschimansky.com/)
 
 ## License
-🚧 License is currently in progress 🚧
+Code released under the [MIT License](https://github.com/akekesi/minichat/blob/main/LICENSE).
