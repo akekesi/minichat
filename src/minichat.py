@@ -1,11 +1,20 @@
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
+# pylint: disable=line-too-long
+# pylint: disable=too-many-instance-attributes
+
+"""
+MiniChat GUI Application using OpenAI API
+
+This script creates the main graphical interface (GUI) for the MiniChat application, built using 
+the CustomTkinter library. It supports functionalities for chatting with OpenAI models, generating logos, 
+and managing a list of items. The GUI consists of three tabs: 'Chat', 'Logo', and 'List', each offering 
+different interactive capabilities.
+"""
 
 
 import os
-import openai
 import webbrowser
+
+import openai
 import customtkinter
 
 from src.sub_chat import SubChat
@@ -33,7 +42,19 @@ from src.global_variable import (
 
 
 class MiniChat(customtkinter.CTk):
+    """
+    Main window for the MiniChat GUI application.
+
+    This class manages the creation of the GUI, including tabs for interacting with the chat,
+    generating logos, and managing a list of items. It also handles API key management, event
+    bindings, and logging.
+    """
+
     def __init__(self) -> None:
+        """
+        Initializes the main window of the MiniChat application, sets up the layout, 
+        and loads the OpenAI API key if available.
+        """
         logger.debug("0")
         super().__init__()
 
@@ -61,6 +82,10 @@ class MiniChat(customtkinter.CTk):
         logger.debug("1")
 
     def set_tab(self) -> None:
+        """
+        Configures the main tabs ('Chat', 'Logo', 'List') and associates each tab with
+        its respective functionalities (chatting, logo generation, and list management).
+        """
         logger.debug("0")
 
         self.tabview = customtkinter.CTkTabview(
@@ -93,6 +118,10 @@ class MiniChat(customtkinter.CTk):
         logger.debug("1")
 
     def set_info(self) -> None:
+        """
+        Creates an information frame that displays a button to set the API key and a label 
+        with a link to OpenAI's website.
+        """
         logger.debug("0")
 
         self.frame_info = customtkinter.CTkFrame(master=self, fg_color=COLOR_FRAME, border_width=WIDTH_BORDER, border_color=COLOR_BORDER)
@@ -116,6 +145,9 @@ class MiniChat(customtkinter.CTk):
         logger.debug("1")
 
     def set_bind(self) -> None:
+        """
+        Binds keyboard shortcuts (e.g., Return, Alt-Right, Alt-Left) to corresponding tab navigation or actions.
+        """
         logger.debug("0")
 
         self.bind("<Return>", self.click_return)
@@ -125,6 +157,9 @@ class MiniChat(customtkinter.CTk):
         logger.debug("1")
 
     def click_tab(self) -> None:
+        """
+        Handles tab switching and logs the transition between tabs.
+        """
         logger.debug("0")
 
         tab_previous = self.tab_current
@@ -135,6 +170,9 @@ class MiniChat(customtkinter.CTk):
 
     # pylint: disable=unused-argument
     def click_arrow_right(self, event=None) -> None:
+        """
+        Switches to the next tab in the tabview when Alt-Right is pressed.
+        """
         logger.debug("0")
 
         tab_previous = self.tab_current
@@ -148,6 +186,9 @@ class MiniChat(customtkinter.CTk):
 
     # pylint: disable=unused-argument
     def click_arrow_left(self, event=None) -> None:
+        """
+        Switches to the previous tab in the tabview when Alt-Left is pressed.
+        """
         logger.debug("0")
 
         tab_previous = self.tab_current
@@ -161,6 +202,9 @@ class MiniChat(customtkinter.CTk):
 
     # pylint: disable=unused-argument
     def click_return(self, event=None) -> None:
+        """
+        Triggers the relevant action (send message, generate logo, add list item) depending on the active tab.
+        """
         logger.debug("0")
 
         if self.tab_current == self.tabs[0]:
@@ -176,6 +220,9 @@ class MiniChat(customtkinter.CTk):
         logger.debug("1")
 
     def set_api_key(self) -> None:
+        """
+        Opens a dialog to input and set the OpenAI API key.
+        """
         logger.debug("0")
 
         api_key = self.dialog_api_key(
@@ -192,6 +239,16 @@ class MiniChat(customtkinter.CTk):
         logger.debug("1")
 
     def dialog_api_key(self, title: str, text: str) -> str:
+        """
+        Displays an input dialog for entering the OpenAI API key.
+
+        Args:
+            title (str): Title of the input dialog.
+            text (str): Prompt text for the input dialog.
+
+        Returns:
+            str: The API key entered by the user.
+        """
         logger.debug("0")
 
         dialog = customtkinter.CTkInputDialog(title=title, text=text)
@@ -203,6 +260,9 @@ class MiniChat(customtkinter.CTk):
         return input_
 
     def save_api_key(self) -> None:
+        """
+        Saves the entered API key to a file for future use.
+        """
         logger.debug("0")
 
         with open(PATH_API_KEY, "w", encoding="utf-8") as f:
@@ -211,6 +271,13 @@ class MiniChat(customtkinter.CTk):
         logger.debug("1")
 
     def check_api_key(self) -> bool:
+        """
+        Verifies the validity of the saved API key by making an API call to OpenAI. Updates the API key button color 
+        based on success or failure.
+
+        Returns:
+            bool: True if the API key is valid, False otherwise.
+        """
         logger.debug("0")
 
         try:
@@ -236,6 +303,9 @@ class MiniChat(customtkinter.CTk):
 
     # pylint: disable=unused-argument
     def open_openai(self, event=None) -> None:
+        """
+        Opens the OpenAI website in the default web browser.
+        """
         logger.debug("0")
         webbrowser.open(url=URL_OPENAI)
         logger.debug("1")
