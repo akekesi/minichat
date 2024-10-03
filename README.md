@@ -133,21 +133,28 @@ After launching the MiniChat GUI, the **Set API Key** button indicates the statu
 - <kbd>Esc</kbd>: Close any view window opened from the **List** tab.
 
 ## To-Do
+### Notation
+- [ ] Task to do
+- [x] Task in progress
+- [x] ~~Task finished~~
+
+### To-Do
+
 - [ ] Add version
 - [ ] Add setup.py, .toml
-- [x] Add GitHub Actions
-- [x] Add badges (Python)
-- [x] Add badges (GitHub Actions CI)
+- [x] ~~Add GitHub Actions~~
+- [x] ~~Add badges (Python)~~
+- [x] ~~Add badges (GitHub Actions CI)~~
 - [ ] Add badges (GitHub Actions Coverage)
 - [ ] Add badges (Version)
 - [ ] Add badges (...)
-- [ ] Add docstrings (module, class, function)
+- [x] Add docstrings (module, class, function)
 - [ ] Refactor KISS, DRY
 - [ ] Fix pylint errors
 - [ ] Write tests for the GUI (using mocks)
 - [ ] Write tests for logger (stdout)
 - [ ] Add demo, animation, or video
-- [x] Add license
+- [x] ~~Add license~~
 - [ ] Create a logo for MiniChat
 - [ ] Complete README.md
 - [ ] Update CI.yml [(deprecation of v3 of the artifact actions)](https://github.blog/changelog/2024-04-16-deprecation-notice-v3-of-the-artifact-actions/)
