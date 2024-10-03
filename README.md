@@ -142,6 +142,7 @@ After launching the MiniChat GUI, the **Set API Key** button indicates the statu
 - [ ] Add badges (Version)
 - [ ] Add badges (...)
 - [ ] Add docstrings (module, class, function)
+- [ ] Refactor KISS, DRY
 - [ ] Fix pylint errors
 - [ ] Write tests for the GUI (using mocks)
 - [ ] Write tests for logger (stdout)
@@ -149,6 +150,7 @@ After launching the MiniChat GUI, the **Set API Key** button indicates the statu
 - [ ] Add license
 - [ ] Create a logo for MiniChat
 - [ ] Complete README.md
+- [ ] Update CI.yml [(deprecation of v3 of the artifact actions)](https://github.blog/changelog/2024-04-16-deprecation-notice-v3-of-the-artifact-actions/)
 
 ## Authors
 Attila Kékesi
