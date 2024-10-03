@@ -1,6 +1,4 @@
 # pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
 # pylint: disable=too-few-public-methods
 # pylint: disable=line-too-long
 # pylint: disable=invalid-name
@@ -10,8 +8,22 @@ from openai import OpenAI
 
 
 class AIChat:
+    """
+    A class to handle chat interactions with OpenAI's gpt-3.5-turbo model.
+
+    Attributes:
+        client (OpenAI): An instance of the OpenAI client initialized with the API key.
+        dialog (list): A list of messages representing the chat history, starting with the system's role definition.
+    """
 
     def __init__(self, api_key: str, role: str) -> None:
+        """
+        Initializes the AIChat class with an OpenAI client and sets the system's role.
+
+        Args:
+            api_key (str): The API key for authenticating with OpenAI.
+            role (str): The role definition for the AI, which will influence its responses in the conversation.
+        """
         self.client = OpenAI(api_key=api_key)
         self.dialog = [
             {
@@ -21,6 +33,15 @@ class AIChat:
         ]
 
     def message(self, message: str) -> str:
+        """
+        Sends a message to the OpenAI chat model and returns its response.
+
+        Args:
+            message (str): The user's input message to send to the AI.
+
+        Returns:
+            str: The AI's response to the message.
+        """
         self.dialog.append(
             {
                 "role": "user",
