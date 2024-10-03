@@ -1,6 +1,28 @@
-# pylint: disable=missing-module-docstring
+# pylint: disable=line-too-long
 # pylint: disable=fixme
 
+"""
+Global Variables for MiniChat GUI Application
+
+This module contains global constants, file paths, and configurations for the MiniChat GUI project. 
+It includes parameters for window sizes, color schemes, widget settings, and logging setup. 
+These variables are used throughout the application to maintain consistency and manage resources.
+
+Attributes:
+    NAME (str): The name of the application.
+    PADX (int): Horizontal padding for widgets.
+    PADY (int): Vertical padding for widgets.
+    WIDTH_BORDER (int): Border width for frames and widgets.
+    COLOR_* (str): Color settings for various UI components.
+    SIZE_* (dict/tuple): Size configurations for different windows and logo elements.
+    PATH_* (str): File paths to various resources like icons, logs, and API keys.
+    URL_OPENAI (str): URL to OpenAI's website.
+    LIST_CONFIG (dict): Configuration loaded from 'list_config.json' file.
+    WIDGETS_LIST (list): Lists used to manage different UI elements like labels, entries, comboboxes, and buttons.
+    TYPES_ITEM (list): Types of items available in the application (e.g., "private", "public").
+    SUB_METHOD (dict): Dictionary to store subscription methods for chat and logo features.
+    logger (Logger): Configured logger for the application.
+"""
 
 import os
 import json
