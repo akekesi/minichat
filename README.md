@@ -44,13 +44,13 @@ MiniChat is a [Python](https://www.python.org/) GUI application built with [Cust
 ## Usage of Executable
 ### 1. Build an executable using shell script
 ```bash
-$ . create_exe.sh arg1
+$ . create_exe.sh <arg1>
 ```
-   - `arg1`: Suffix for naming the virtual environment
-   Examples:  
+   - `<arg1>`: Suffix for naming the virtual environment (optional).  
+   Examples:
    ```bash
-   $ . create_exe.sh              # /exe/minichat/minichat.exe
-   $ . create_exe.sh test         # /exe/minichat_test/minichat_test.exe
+   $ . create_exe.sh              # Creates /exe/minichat/minichat.exe
+   $ . create_exe.sh test         # creates /exe/minichat_test/minichat_test.exe
    ```
 ### 2. Run the executable
 Run **MiniChat** by double-clicking the `minichat.exe` file located in the `/exe/minichat` directory.
@@ -58,20 +58,20 @@ Run **MiniChat** by double-clicking the `minichat.exe` file located in the `/exe
 ## Usage of Python Scripts
 
 ### 1. Installing Python Packages
-- **With a Virtual Environment** (using a shell script):  
+- **With a Virtual Environment (using a shell script)**:
 ```bash
-$ . venv_setup.sh arg1 arg2
+$ . venv_setup.sh <arg1> <arg2>
 ```
-   - `arg1`: Suffix for naming the virtual environment  
-   - `arg2`: Set to "dev" to include `requirements_dev.txt`  
-   Examples:  
+   - `<arg1>`: Suffix for naming the virtual environment (optioanla).
+   - `<arg2>`: Set to "dev" to include `requirements_dev.txt` (optioanla)  
+   Examples:
    ```bash
-   $ . venv_setup.sh              # .venv_minichat
-   $ . venv_setup.sh test         # .venv_minichat_test
-   $ . venv_setup.sh "" dev       # .venv_minichat_dev
-   $ . venv_setup.sh test dev     # .venv_minichat_test_dev
+   $ . venv_setup.sh               # Creates .venv_minichat
+   $ . venv_setup.sh test          # Creates .venv_minichat_test
+   $ . venv_setup.sh "" dev        # Creates .venv_minichat_dev
+   $ . venv_setup.sh test dev      # Creates .venv_minichat_test_dev
    ```
-- **Without a Virtual Environment**:  
+- **Without a Virtual Environment**:
 ```bash
 $ python -m pip install --upgrade pip
 $ pip install -r requirements.txt
