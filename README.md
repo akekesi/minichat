@@ -15,7 +15,7 @@
 
 <p align="center">
    <a href="#demo" title="Click to view full-size GIF in Demo section">
-      <img src="gif/minichat_demo_small.gif" alt="Demo">
+      <img src="gif/minichat_demo_50.gif" alt="Demo">
   </a>
 </p>
 
