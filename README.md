@@ -13,6 +13,12 @@
 ![OpenAI](https://img.shields.io/badge/OpenAI_API-✔-blue)
 </div>
 
+<p align="center">
+   <a href="#demo" title="Click to view full-size GIF in Demo section">
+      <img src="gif/minichat_demo_small.gif" alt="Demo">
+  </a>
+</p>
+
 ## Table of Contents
 1. [Description](#description)
 2. [Demo](#demo)
@@ -36,7 +42,7 @@ MiniChat is a [Python](https://www.python.org/) GUI application built with [Cust
 
 ## Demo
 <p align="center">
-  <img src="gif/minichat_demo.gif" alt="Project Demo">
+  <img src="gif/minichat_demo_75.gif" alt="Project Demo">
 </p>
 
 ## Prerequisites
