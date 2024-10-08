@@ -35,7 +35,9 @@ MiniChat is a [Python](https://www.python.org/) GUI application built with [Cust
 🚧 This project is a work in progress. Some features may be incomplete, untested, or lacking full documentation. 🚧
 
 ## Demo
-🚧 Demo is currently in progress 🚧
+<p align="center">
+  <img src="gif/minichat_demo.gif" alt="Project Demo">
+</p>
 
 ## Prerequisites
 - [Python 3.12.0](https://www.python.org/downloads/release/python-3120/)
@@ -153,7 +155,7 @@ After launching the MiniChat GUI, the **Set API Key** button indicates the statu
 - [ ] Fix pylint errors
 - [ ] Write tests for the GUI (using mocks)
 - [ ] Write tests for logger (stdout)
-- [ ] Add demo, animation, or video
+- [x] Add demo, animation, or video
 - [x] ~~Add license~~
 - [ ] Create a logo for MiniChat
 - [ ] Complete README.md
