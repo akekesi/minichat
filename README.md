@@ -15,7 +15,7 @@
 
 <p align="center">
    <a href="#demo" title="Click to view full-size GIF in Demo section">
-      <img src="gif/minichat_demo_50.gif" alt="Demo">
+      <img src="gif/minichat_demo_50.gif" alt="minichat_demo_50_gif">
   </a>
 </p>
 
@@ -42,7 +42,7 @@ MiniChat is a [Python](https://www.python.org/) GUI application built with [Cust
 
 ## Demo
 <p align="center">
-  <img src="gif/minichat_demo_75.gif" alt="Project Demo">
+  <img src="gif/minichat_demo_75.gif" alt="minichat_demo_75_gif">
 </p>
 
 ## Prerequisites
