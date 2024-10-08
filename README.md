@@ -51,12 +51,12 @@ MiniChat is a [Python](https://www.python.org/) GUI application built with [Cust
 
 ## Usage of Executable
 ### 1. Build an executable using shell script
-```bash
+```
 $ . create_exe.sh <arg1>
 ```
    - `<arg1>`: Suffix for naming the virtual environment (optional).  
    Examples:
-   ```bash
+   ```
    $ . create_exe.sh              # Creates /exe/minichat/minichat.exe
    $ . create_exe.sh test         # creates /exe/minichat_test/minichat_test.exe
    ```
@@ -67,48 +67,48 @@ Run **MiniChat** by double-clicking the `minichat.exe` file located in the `/exe
 
 ### 1. Installing Python Packages
 - **With a Virtual Environment (using a shell script)**:
-```bash
+```
 $ . venv_setup.sh <arg1> <arg2>
 ```
    - `<arg1>`: Suffix for naming the virtual environment (optioanla).
    - `<arg2>`: Set to "dev" to include `requirements_dev.txt` (optioanla)  
    Examples:
-   ```bash
+   ```
    $ . venv_setup.sh               # Creates .venv_minichat
    $ . venv_setup.sh test          # Creates .venv_minichat_test
    $ . venv_setup.sh "" dev        # Creates .venv_minichat_dev
    $ . venv_setup.sh test dev      # Creates .venv_minichat_test_dev
    ```
 - **Without a Virtual Environment**:
-```bash
+```
 $ python -m pip install --upgrade pip
 $ pip install -r requirements.txt
 $ pip install -r requirements_dev.txt
 ```
 
 ### 2. Running MiniChat
-```bash
+```
 $ python -m src.minichat
 ```
 
 ### 3. Running Pylint (with `requirements_dev.txt`)
-```bash
+```
 $ pylint src/<name_of_file>
 ```
 
 ### 4. Running a Single Unit Test (with `requirements_dev.txt`)
-```bash
+```
 $ python -m test.test_logger_00
 $ python -m test.<name_of_test_file>
 ```
 
 ### 5. Running All Unit Tests (with `requirements_dev.txt`)
-```bash
+```
 $ python -m unittest discover test
 ```
 
 ### 6. Running Coverage with Unit Tests (with `requirements_dev.txt`)
-```bash
+```
 $ python -m coverage run -m unittest discover test
 $ python -m coverage report
 $ python -m coverage html
