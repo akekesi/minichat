@@ -2,7 +2,7 @@
 <div align="center">
 
    [![Status](https://img.shields.io/badge/Status-in_progress-yellow.svg)](https://github.com/akekesi/minichat?tab=readme-ov-file#description)
-   [![CI](https://github.com/akekesi/minichat/actions/workflows/ci.yml/badge.svg)](https://github.com/features/actions)
+   [![CI](https://github.com/akekesi/minichat/actions/workflows/ci.yml/badge.svg)](https://github.com/akekesi/minichat/actions)
 </div>
 
 <div align="center">
