@@ -21,15 +21,15 @@
 
 ## Table of Contents
 1. [Description](#description)
-2. [Demo](#demo)
-3. [Prerequisites](#prerequisites)
-4. [Usage of Executable](#usage-of-executable)
-5. [Usage of Python Scripts](#usage-of-python-scripts)
-6. [Usage of MiniChat](#usage-of-minichat)
-7. [To-Do](#to-do)
-8. [Authors](#authors)
-9. [Acknowledgements](#acknowledgements)
-10. [License](#license)
+1. [Demo](#demo)
+1. [Prerequisites](#prerequisites)
+1. [Python Environment Setup](#python-environment-setup)
+1. [Build and Run Executable](#build-and-run-executable)
+1. [MiniChat User Guide](#minichat-user-guide)
+1. [To-Do](#to-do)
+1. [Authors](#authors)
+1. [Acknowledgements](#acknowledgements)
+1. [License](#license)
 
 ## Description
 MiniChat is a [Python](https://www.python.org/) GUI application built with [CustomTkinter](https://customtkinter.tomschimansky.com/) and powered by the [OpenAI API](https://openai.com/). It offers three core features:
@@ -49,22 +49,7 @@ MiniChat is a [Python](https://www.python.org/) GUI application built with [Cust
 - [Python 3.12.0](https://www.python.org/downloads/release/python-3120/)
 - [OpenAI API Key](https://platform.openai.com/api-keys)
 
-## Usage of Executable
-### 1. Build an executable using shell script
-```
-$ . create_exe.sh <arg1>
-```
-   - `<arg1>`: Suffix for naming the virtual environment (optional).  
-   Examples:
-   ```
-   $ . create_exe.sh              # Creates /exe/minichat/minichat.exe
-   $ . create_exe.sh test         # creates /exe/minichat_test/minichat_test.exe
-   ```
-### 2. Run the executable
-Run **MiniChat** by double-clicking the `minichat.exe` file located in the `/exe/minichat` directory.
-
-## Usage of Python Scripts
-
+## Python Environment Setup
 ### 1. Installing Python Packages
 - **With a Virtual Environment (using a shell script)**:
 ```
@@ -115,7 +100,22 @@ $ python -m coverage html
 ```
 View the HTML coverage report at: `htmlcov/index.html`
 
-## Usage of MiniChat
+## Build and Run Executable
+### 1. Build an executable using shell script
+```
+$ . create_exe.sh <arg1>
+```
+   - `<arg1>`: Suffix for naming the virtual environment (optional).  
+   Examples:
+   ```
+   $ . create_exe.sh              # Creates /exe/minichat/minichat.exe
+   $ . create_exe.sh test         # creates /exe/minichat_test/minichat_test.exe
+   ```
+
+### 2. Run the executable
+Run **MiniChat** by double-clicking the `minichat.exe` file located in the `/exe/minichat` directory.
+
+## MiniChat User Guide
 After launching the MiniChat GUI, the **Set API Key** button indicates the status of your OpenAI API key (red = invalid, green = valid). You can use this button to update your API key. When the button turns green, you can access the features of the application.
 
 ### Chat Tab:
@@ -147,7 +147,6 @@ After launching the MiniChat GUI, the **Set API Key** button indicates the statu
 - [x] ~~Task finished~~
 
 ### To-Do
-
 - [ ] Add version
 - [ ] Add setup.py, .toml
 - [x] ~~Add GitHub Actions~~
@@ -161,7 +160,7 @@ After launching the MiniChat GUI, the **Set API Key** button indicates the statu
 - [ ] Fix pylint errors
 - [ ] Write tests for the GUI (using mocks)
 - [ ] Write tests for logger (stdout)
-- [x] Add demo, animation, or video
+- [x] ~~Add demo, animation, or video~~
 - [x] ~~Add license~~
 - [ ] Create a logo for MiniChat
 - [ ] Complete README.md
