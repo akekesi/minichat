@@ -1,16 +1,16 @@
 # MiniChat
 <div align="center">
 
-![Status](https://img.shields.io/badge/Status-in_progress-yellow.svg)
-![CI](https://github.com/akekesi/minichat/actions/workflows/ci.yml/badge.svg)
+   ![Status](https://img.shields.io/badge/Status-in_progress-yellow.svg)
+   ![CI](https://github.com/akekesi/minichat/actions/workflows/ci.yml/badge.svg)
 </div>
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.12.0-blue)
-![CustomTkinter](https://img.shields.io/badge/CustomTkinter-✔-blue)
-![Shell Script](https://img.shields.io/badge/Shell_Script-✔-blue)
-![OpenAI](https://img.shields.io/badge/OpenAI_API-✔-blue)
+   ![Python](https://img.shields.io/badge/Python-3.12.0-blue)
+   ![CustomTkinter](https://img.shields.io/badge/CustomTkinter-✔-blue)
+   ![Shell Script](https://img.shields.io/badge/Shell_Script-✔-blue)
+   ![OpenAI](https://img.shields.io/badge/OpenAI_API-✔-blue)
 </div>
 
 <p align="center">
