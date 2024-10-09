@@ -1,16 +1,16 @@
 # MiniChat
 <div align="center">
 
-   ![Status](https://img.shields.io/badge/Status-in_progress-yellow.svg)
-   ![CI](https://github.com/akekesi/minichat/actions/workflows/ci.yml/badge.svg)
+   [![Status](https://img.shields.io/badge/Status-in_progress-yellow.svg)](https://github.com/akekesi/minichat?tab=readme-ov-file#description)
+   [![CI](https://github.com/akekesi/minichat/actions/workflows/ci.yml/badge.svg)](https://github.com/features/actions)
 </div>
 
 <div align="center">
 
-   ![Python](https://img.shields.io/badge/Python-3.12.0-blue)
-   ![CustomTkinter](https://img.shields.io/badge/CustomTkinter-✔-blue)
-   ![Shell Script](https://img.shields.io/badge/Shell_Script-✔-blue)
-   ![OpenAI](https://img.shields.io/badge/OpenAI_API-✔-blue)
+   [![Python](https://img.shields.io/badge/Python-3.12.0-blue)](https://www.python.org/downloads/release/python-3120/)
+   [![CustomTkinter](https://img.shields.io/badge/CustomTkinter-✔-blue)](https://customtkinter.tomschimansky.com/)
+   [![Shell Script](https://img.shields.io/badge/Shell_Script-✔-blue)](https://en.wikipedia.org/wiki/Shell_script)
+   [![OpenAI](https://img.shields.io/badge/OpenAI_API-✔-blue)](https://openai.com/)
 </div>
 
 <p align="center">
