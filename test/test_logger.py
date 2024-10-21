@@ -1,19 +1,16 @@
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
+"""
+Module for testing logging functionality.
+
+Execute: python -m tests.test_logger
+"""
+
 # pylint: disable=unnecessary-comprehension
 # pylint: disable=too-many-locals
 # pylint: disable=line-too-long
 # pylint: disable=fixme
 
-
-"""
-execute: python -m tests.test_logger_00
-"""
-
 # TODO: check stdout
 # TODO: check external function
-
 
 import os
 import shutil
@@ -24,13 +21,17 @@ from src.logger_config import Logging
 
 
 class TestLogging(unittest.TestCase):
+    """Unit test class for logging setup and configuration."""
+
     def __init__(self, methodName: str = "runTest") -> None:
+        """Initialize the test instance with a logger and directory path."""
         super().__init__(methodName)
 
         self.logger = None
         self.path_dir = None
 
     def setUp(self) -> None:
+        """Set up the test environment by creating a logging directory and logger instance."""
         # generate dir
         self.path_dir = self.generate_dir()
 
@@ -39,6 +40,10 @@ class TestLogging(unittest.TestCase):
         self.logger = self.set_logger(name=name)
 
     def tearDown(self) -> None:
+        """
+        Tear down the test environment by closing handlers, shutting down logging, 
+        and removing the logging directory.
+        """
         # close handlers
         if self.logger is not None:
             for handler in self.logger.handlers[:]:
@@ -56,6 +61,7 @@ class TestLogging(unittest.TestCase):
         self,
         name: str = "test_log"
     ) -> str:
+        """Generate a unique logging directory for the test."""
         n = 0
         while True:
             n += 1
@@ -69,6 +75,7 @@ class TestLogging(unittest.TestCase):
         self,
         name: str
     ) -> logging.Logger:
+        """Set up a logger with the specified name, logging level, and directory."""
         logger = Logging().set_logger(
             name=name,
             level=logging.DEBUG,
@@ -77,6 +84,7 @@ class TestLogging(unittest.TestCase):
         return logger
 
     def test_logger_000(self) -> None:
+        """Test the existence and basic setup of the logger."""
         # existence of logger
         self.assertIsNotNone(self.logger, "logger instance does not exist")
 
@@ -95,7 +103,7 @@ class TestLogging(unittest.TestCase):
         self.assertTrue(path_log.endswith(".log"), f"{path_log} is not an instance of .log")
 
     def test_logger_001(self) -> None:
-        # content of logger file - DEBUG
+        """Test logging functionality for the DEBUG level."""
         print() # only for stdout
         level = "DEBUG"
         message = f"test - {level.lower()}"
@@ -116,7 +124,7 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
 
     def test_logger_002(self) -> None:
-        # content of logger file - INFO
+        """Test logging functionality for the INFO level."""
         print() # only for stdout
         level = "INFO"
         message = f"test - {level.lower()}"
@@ -137,7 +145,7 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
 
     def test_logger_003(self) -> None:
-        # content of logger file - WARNING
+        """Test logging functionality for the WARNING level."""
         print() # only for stdout
         level = "WARNING"
         message = f"test - {level.lower()}"
@@ -158,7 +166,7 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
 
     def test_logger_004(self) -> None:
-        # content of logger file - ERROR
+        """Test logging functionality for the ERROR level."""
         print() # only for stdout
         level = "ERROR"
         message = f"test - {level.lower()}"
@@ -179,7 +187,7 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
 
     def test_logger_005(self) -> None:
-        # content of logger file - CRITICAL
+        """Test logging functionality for the CRITICAL level."""
         print() # only for stdout
         level = "CRITICAL"
         message = f"test - {level.lower()}"
@@ -200,7 +208,7 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(len(log_lines), 1, f"{path_log} has not exactly one {level} line with '{message}'")
 
     def test_logger_006(self) -> None:
-        # content of logger file - ALL
+        """Test logging functionality for all level."""
         print() # only for stdout
         path_log_list = os.listdir(self.path_dir)
         path_log = os.path.join(self.path_dir, path_log_list[0])
@@ -249,7 +257,10 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(len(log_lines_c), 1, f"{path_log} has not exactly one {level_c} line with '{message_c}'")
 
     def test_logger_007(self) -> None:
-        # max number of files
+        """
+        Test logging behavior when generating multiple log files.
+        This test verifies that the logger correctly limits the number of log files in the directory.
+        """
         print() # only for stdout
         path_log_list = os.listdir(self.path_dir)
         path_log = os.path.join(self.path_dir, path_log_list[0])
@@ -293,7 +304,7 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(len(path_log_list), 7, f"{path_log} has not exactly seven files")
 
     def test_logger_008(self) -> None:
-        # content of logger file using method
+        """Test the content of log files when using the logging methods."""
         print() # only for stdout
         path_log_list = os.listdir(self.path_dir)
         path_log = os.path.join(self.path_dir, path_log_list[0])
@@ -324,11 +335,29 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(len(log_lines_d_m), 3, f"{path_log} has not exactly three {level_d_m} line with '{message_d_m}'")
 
     def add_log_info(self) -> None:
+        """
+        Log an INFO level message using the logger.
+
+        This method logs an INFO message, 'test method - info', and returns the message
+        for further verification in tests.
+
+        Returns:
+            str: The logged INFO message.
+        """
         message = "test method - info"
         self.logger.info(message)
         return message
 
     def add_log_debug(self) -> None:
+        """
+        Log a DEBUG level message using the logger.
+
+        This method logs a DEBUG message, 'test method - debug', and returns the message
+        for further verification in tests.
+
+        Returns:
+            str: The logged DEBUG message.
+        """
         message = "test method - debug"
         self.logger.debug(message)
         return message

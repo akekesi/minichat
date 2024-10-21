@@ -83,7 +83,7 @@ $ pylint src/<name_of_file>
 
 ### 4. Running a Single Unit Test (with `requirements_dev.txt`)
 ```
-$ python -m test.test_logger_00
+$ python -m test.test_logger
 $ python -m test.<name_of_test_file>
 ```
 
