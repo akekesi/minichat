@@ -94,9 +94,9 @@ $ python -m unittest discover test
 
 ### 6. Running Coverage with Unit Tests (with `requirements_dev.txt`)
 ```
-$ python -m coverage run -m unittest discover test
-$ python -m coverage report
-$ python -m coverage html
+$ coverage run -m unittest discover test
+$ coverage report
+$ coverage html
 ```
 View the HTML coverage report at: `htmlcov/index.html`
 
